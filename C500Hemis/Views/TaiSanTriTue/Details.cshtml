@@ -4,6 +4,7 @@
     ViewData["Title"] = "Details";
 
 }
+<<<<<<< Updated upstream
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <style>
@@ -193,3 +194,181 @@
     </script>
 
 </body>
+=======
+<style>
+    /* CSS cho Logo HVAN đầu trang */
+    .tittle {
+        display: flex;
+        flex-direction: row;
+        padding-bottom: 20px;
+        color: darkgreen;
+        text-shadow: 1px 1px 0 white;
+    }
+
+        .tittle h4 {
+            font-weight: 800;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .tittle h6 {
+            font-style: italic;
+            font-weight: 800;
+            text-align: right;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+    .main-text {
+        background-color: rgba(26, 102, 26, 0.9);
+        color: #fff;
+        text-shadow: 2px 2px 0 black;
+        font-weight: bold;
+        padding: 10px 15px;
+        text-align: center;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #ECF8E0, #E0F8EC);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #002702;
+        padding: 10px;
+        text-align: left;
+        background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    th {
+        background-color: rgba(26, 102, 26, 0.8);
+        color: #fff;
+    }
+
+    .back-links {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .button {
+        padding: 10px 20px;
+        background-color: darkgreen;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+        .button:hover {
+            background-color: #004d00;
+        }
+</style>
+
+<div class="tittle">
+    <div>
+        <img src="https://upload.wikimedia.org/wikipedia/vi/8/85/Logo_hoc_vien_ANND.png" height="90px" width="90px" alt="Logo" />
+    </div>
+    <div style="padding-top:20px;padding-left:10px;">
+        <h4>Học viện An ninh nhân dân</h4>
+        <h6>C500 - 1946</h6>
+    </div>
+</div>
+
+<h1 class="main-text">Chi tiết</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Tài sản trí tuệ</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.MaGiaiPhapSangChe)</td>
+            <td>@Html.DisplayFor(model => model.MaGiaiPhapSangChe)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.TenTaiSanTriTue)</td>
+            <td>@Html.DisplayFor(model => model.TenTaiSanTriTue)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.ToChucCapBangGiayChungNhan)</td>
+            <td>@Html.DisplayFor(model => model.ToChucCapBangGiayChungNhan)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.NgayCapBangGiayChungNhan)</td>
+            <td>@Html.DisplayFor(model => model.NgayCapBangGiayChungNhan)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.ToChucCapBang)</td>
+            <td>@Html.DisplayFor(model => model.ToChucCapBang)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.SoBang)</td>
+            <td>@Html.DisplayFor(model => model.SoBang)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.NgayCap)</td>
+            <td>@Html.DisplayFor(model => model.NgayCap)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.SoDon)</td>
+            <td>@Html.DisplayFor(model => model.SoDon)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.NgayNopDon)</td>
+            <td>@Html.DisplayFor(model => model.NgayNopDon)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.QuyetDinhCapBangGiayChungNhan)</td>
+            <td>@Html.DisplayFor(model => model.QuyetDinhCapBangGiayChungNhan)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.CongBoBang)</td>
+            <td>@Html.DisplayFor(model => model.CongBoBang)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Ipc)</td>
+            <td>@Html.DisplayFor(model => model.Ipc)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.ChuSoHuu)</td>
+            <td>@Html.DisplayFor(model => model.ChuSoHuu)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.TacGiaSangCheGiaiPhap)</td>
+            <td>@Html.DisplayFor(model => model.TacGiaSangCheGiaiPhap)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.TomTatNoiDungTaiSanTriTue)</td>
+            <td>@Html.DisplayFor(model => model.TomTatNoiDungTaiSanTriTue)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.NguoiChuTri)</td>
+            <td>@Html.DisplayFor(model => model.NguoiChuTri)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.NamDuocChapNhanDonHopLe)</td>
+            <td>@Html.DisplayFor(model => model.NamDuocChapNhanDonHopLe)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.IdLoaiTaiSanTriTueNavigation)</td>
+            <td>@Html.DisplayFor(model => model.IdLoaiTaiSanTriTueNavigation.IdLoaiTaiSanTriTue)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.IdNhiemVuKhcnNavigation)</td>
+            <td>@Html.DisplayFor(model => model.IdNhiemVuKhcnNavigation.IdNhiemVuKhcn)</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="back-links">
+    <a class="button" asp-action="Edit" asp-route-id="@Model?.IdTaiSanTriTue">Sửa</a>
+    <a class="button" asp-action="Index">Trở về</a>
+</div>
+>>>>>>> Stashed changes

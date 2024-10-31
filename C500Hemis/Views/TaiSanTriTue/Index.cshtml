@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿@section heads {
     <style>
         footer {
@@ -265,3 +266,272 @@
 
 
     </body>
+=======
+﻿@model IEnumerable<C500Hemis.Models.TbTaiSanTriTue>
+
+@{
+    ViewData["Title"] = "Index";
+    int i = 1;
+}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANH SÁCH</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js" rel="stylesheet" />
+
+    <style>
+        
+        .container{
+            padding: 0;
+        }
+
+        /* CSS cho Logo HVAN đầu trang */
+        .tittle {
+            display: flex;
+            flex-direction: row;
+            padding-bottom: 20px;
+            color: darkgreen;
+            text-shadow: 1px 1px 0 white;
+        }
+
+            .tittle h4 {
+                font-weight: 800;
+                font-family: "Times New Roman", Times, serif;
+            }
+
+            .tittle h6 {
+                font-style: italic;
+                font-weight: 800;
+                text-align: right;
+                font-family: "Times New Roman", Times, serif;
+            }
+
+        /* CSS dòng THÔNG TIN TÀI SẢN TRÍ TUỆ*/
+        .main-text {
+            background-color: rgba(26, 102, 26, 0.9); 
+            color: #fff;
+            text-shadow: 2px 2px 0 black;
+            font-weight: bold;
+            padding: 10px 15px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        /*Nút Thêm mới*/
+        .search-create-wrapper {
+            display: flex;
+            justify-content: space-between; /* Căn đều khoảng cách giữa form và nút */
+            align-items: center; /* Căn giữa theo chiều dọc */
+            padding-bottom: 20px;
+        }
+            .search-create-wrapper form {
+                padding-top: 15px;
+                margin: 0; /* Xóa margin của form để nó không ảnh hưởng đến bố cục */
+            }
+            .search-create-wrapper p {
+                margin: 0; /* Xóa margin của thẻ p chứa nút */
+            }
+
+        /*Nút thêm mới*/
+        .btn-custom {
+            background-color: #298A08;
+            border-color: #298A08;
+            color: white;
+            text-shadow: 0.5px 0.5px 0 #A4A4A4;
+        }
+        
+        
+        /*Thân trang*/
+        body{
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ECF8E0, #E0F8EC);
+        }
+
+        
+        /* bảng */
+        #dataTable {
+            white-space: nowrap; /* Phần tử trong một ô hiển thị liên tục mà không bị ngắt dòng*/
+        }
+
+        th{
+            border: 2px solid rgb(17 104 118);
+            text-align: center;
+            padding: 10px;
+        }
+        td{
+            border: 2px solid rgb(17 104 118);
+            text-align: center;
+            padding: 10px;
+        }
+
+        .value:hover {
+            background-color: #f5f5f5;
+        }
+
+        .value:hover td {
+                color: #333;
+                font-weight: bold;
+        }
+
+        .btn:hover {
+            color: white;
+        }
+
+        /*nút edit*/
+        .btn-primary {
+            background-color: #FF8900; 
+            border-color: #AC9800;
+        }
+        /*nút xóa*/
+        .btn-danger {
+            background-color: #dc3545; 
+        }
+
+         .btn-create:active {
+            font-weight: bolder; /* Chữ sẽ đậm hơn khi nhấn */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Thay đổi bóng đổ khi nhấn */
+        }
+
+        .wrapper{
+            margin-bottom: 70px; /* thêm margin dưới để không bị dính foottage*/
+        }
+        
+    </style>
+</head>
+
+
+
+<div class="wrapper">
+    <div class="tittle">
+        <div>
+            <img src="https://upload.wikimedia.org/wikipedia/vi/8/85/Logo_hoc_vien_ANND.png" height="90px" width="90px" alt="Logo" />
+        </div>
+        <div style="padding-top:20px;padding-left:10px;">
+            <h4>Học viện An ninh nhân dân</h4>
+            <h6>C500 - 1946</h6>
+        </div>
+    </div>
+
+    <h1 class="main-text">THÔNG TIN TÀI SẢN TRÍ TUỆ</h1>
+
+    <div class="search-create-wrapper">
+        <!-- Form tìm kiếm -->
+        <form asp-controller="TaiSanTriTue" asp-action="Index" method="get" class="text-center mb-3">
+            <div class="input-group">
+                <input type="number" name="Search" placeholder="Tìm kiếm theo ID" />
+                <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+            </div>
+        </form>
+
+        <!-- Nút Thêm mới -->
+        <p>
+            <a class="btn btn-custom" asp-action="Create">Thêm mới</a>
+        </p>
+    </div>
+
+
+    @if (ViewBag.NotFoundMessage != null)
+    {
+        <div class="alert alert-warning text-center">@ViewBag.NotFoundMessage</div>
+    }
+
+    <table id="dataTable" class="table table-hover table-striped text-center table-responsive">
+        <thead class="thead-dark">
+            <tr>
+                <th>STT</th>
+                <th>Chức năng</th>
+                <th>@Html.DisplayNameFor(model => model.MaGiaiPhapSangChe)</th>
+                <th>@Html.DisplayNameFor(model => model.TenTaiSanTriTue)</th>
+                <th>@Html.DisplayNameFor(model => model.ToChucCapBangGiayChungNhan)</th>
+                <th>@Html.DisplayNameFor(model => model.NgayCapBangGiayChungNhan)</th>
+                <th>@Html.DisplayNameFor(model => model.ToChucCapBang)</th>
+                <th>@Html.DisplayNameFor(model => model.SoBang)</th>
+                <th>@Html.DisplayNameFor(model => model.NgayCap)</th>
+                <th>@Html.DisplayNameFor(model => model.SoDon)</th>
+                <th>@Html.DisplayNameFor(model => model.NgayNopDon)</th>
+                <th>@Html.DisplayNameFor(model => model.QuyetDinhCapBangGiayChungNhan)</th>
+                <th>@Html.DisplayNameFor(model => model.CongBoBang)</th>
+                <th>@Html.DisplayNameFor(model => model.Ipc)</th>
+                <th>@Html.DisplayNameFor(model => model.ChuSoHuu)</th>
+                <th>@Html.DisplayNameFor(model => model.TacGiaSangCheGiaiPhap)</th>
+                <th>@Html.DisplayNameFor(model => model.TomTatNoiDungTaiSanTriTue)</th>
+                <th>@Html.DisplayNameFor(model => model.NguoiChuTri)</th>
+                <th>@Html.DisplayNameFor(model => model.NamDuocChapNhanDonHopLe)</th>
+                <th>@Html.DisplayNameFor(model => model.IdLoaiTaiSanTriTue)</th>
+                <th>@Html.DisplayNameFor(model => model.IdNhiemVuKhcnNavigation)</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="value Tr" style="cursor: pointer;" onclick="window.location.href='@Url.Action("Details", new { id = item.IdTaiSanTriTue })'">
+                    <td>@i</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.IdTaiSanTriTue">Sửa</a>
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.IdTaiSanTriTue">Xóa</a>
+                        <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.IdTaiSanTriTue">Chi tiết</a>
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.MaGiaiPhapSangChe)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TenTaiSanTriTue)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ToChucCapBangGiayChungNhan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NgayCapBangGiayChungNhan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ToChucCapBang)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SoBang)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NgayCap)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SoDon)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NgayNopDon)</td>
+                    <td>@Html.DisplayFor(modelItem => item.QuyetDinhCapBangGiayChungNhan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CongBoBang)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Ipc)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ChuSoHuu)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TacGiaSangCheGiaiPhap)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TomTatNoiDungTaiSanTriTue)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NguoiChuTri)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NamDuocChapNhanDonHopLe)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdLoaiTaiSanTriTueNavigation.LoaiTaiSanTriTue)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdNhiemVuKhcnNavigation.TenNhiemVu)</td>
+
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+    <p class="text-left">Số lượng bản ghi: @(i - 1)</p>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            "paging": false,
+            "searching": false,
+            "ordering": false,
+            "info": true,
+            "language": {
+                "lengthMenu": "Hiển thị _MENU_ mục mỗi trang",
+                "zeroRecords": "Không tìm thấy dữ liệu",
+                "info": "Hiển thị _TOTAL_ trên tổng số _MAX_ bản ghi",
+                "infoEmpty": "Không có dữ liệu",
+                "infoFiltered": "(lọc từ _MAX_ tổng số mục)",
+                "search": "Tìm kiếm:",
+                "paginate": {
+                    "first": "Đầu tiên",
+                    "last": "Cuối cùng",
+                    "next": "Sau",
+                    "previous": "Trước"
+                }
+            }
+        });
+    });
+</script>
+>>>>>>> Stashed changes

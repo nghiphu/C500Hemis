@@ -4,8 +4,12 @@
     ViewData["Title"] = "Create";
 
 }
-
-<!-- Sử dụng Bootstrap và jQuery UI -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sử dụng Bootstrap và jQuery UI -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
@@ -14,12 +18,21 @@
 
 <!-- CSS tùy chỉnh -->
 <style>
-    .card {
-        border-radius: 8px;
+    body
+    {
+        height: 100%;
+        margin: 0;
+        overflow-y: auto;
+        background-image: url("/images/doanhnghiep.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 
     .form-group {
         margin-bottom: 15px;
+        margin: 0 15px;
     }
 
     .btn {
@@ -38,31 +51,34 @@
         .btn:hover {
             transform: scale(1.2);
         }
-</style>
-<body style="    background: linear-gradient(
-          to top,
-          #87ceeb,
-          #fffacd
-        );">
+        .form-group label{
+        padding-left: 10px;
+       padding-top: 3px;
+    }
+    .form-group{
+        margin-bottom: 0;
 
-    <h1 class="text-center" style="color: rgb(3, 21, 36);">@ViewData["Title"]</h1>
+        }
+
+</style>
+    
+</head>
+<body>
+     <h1 class="text-center" style="color: rgb(3, 21, 36); font-size: 70px;">@ViewData["Title"] Tài Sản Trí Tuệ</h1>
 
     <div class="container mt-4" style="margin-bottom: 60px;">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow-sm">
-                    <div class="card-header">
-                        <h4 class="mb-0" style="text-align: center;">Thông tin tài sản trí tuệ</h4>
-                    </div>
-                    <div class="card-body">
-                        <form asp-action="Create">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-md-8" style="background-color: rgba(127, 255, 212, 0.548); border-radius: 20px;">
+                <div class="vienngoai" >
+                    <div class="vientrong" style="background-color: rgba(89, 252, 198, 0.548); margin: 20px 20px 20px 20px; border-radius: 20px;">
+                        <form asp-action="Create" class="form">
 
                             <div class="form-group">
                                 <label asp-for="IdTaiSanTriTue" class="control-label"></label>
                                 <input asp-for="IdTaiSanTriTue" class="form-control" />
                                 <span asp-validation-for="IdTaiSanTriTue" class="text-danger"></span>
                             </div>
+
 
                             <div class="form-group">
                                 <label asp-for="IdNhiemVuKhcn" class="control-label"></label>
@@ -170,13 +186,14 @@
                                 <span asp-validation-for="NamDuocChapNhanDonHopLe" class="text-danger"></span>
                             </div>
 
-                            <div class="form-group mt-3">
-                                <input type="submit" value="Tạo mới" class="btn btn-success" />
-                                <a asp-action="Index" class="btn btn-secondary ml-2">Quay lại danh sách</a>
+                            <div class="form-group mt-3" style="text-align: center;">
+                                <input type="submit" value="Save" class="btn btn-success mb-4" />
+                                <a asp-action="Index" class="btn btn-secondary ml-2 mb-4">Quay lại danh sách</a>
                             </div>
                         </form>
                     </div>
-                </div>
+                   
+                </div>    
             </div>
         </div>
     </div>
@@ -185,3 +202,6 @@
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
 </body>
+</html>
+
+   

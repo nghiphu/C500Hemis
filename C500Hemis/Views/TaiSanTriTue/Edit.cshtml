@@ -12,6 +12,17 @@
 </head>
 
 <style>
+    body
+    {
+        height: 100%;
+        margin: 0;
+        overflow-y: auto;
+        background-image: url("/images/taisantritue.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
     /* Định dạng cho nhãn điều khiển */
     label.control-label {
         margin: 3px;
@@ -25,13 +36,13 @@
             transform: scale(1.2);
             // Phóng to nút khi hover
         }
+        .form-control{
+            background-color: rgb(198, 213, 223);
+        }
+       
 </style>
 
-<body style="    background: linear-gradient(
-          to top,
-          #87ceeb,
-          #fffacd
-        );">
+<body>
 
     <div>
         <h1 style="text-align: center; color:#1f0d0d; margin-top:20px; font-family: 'Dancing Script', cursive; font-size:5rem;">
@@ -51,6 +62,8 @@
                         <!-- Mở form với hành động Edit -->
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Hiển thị thông báo lỗi -->
                         <input type="hidden" asp-for="IdTaiSanTriTue" /> <!-- Trường ẩn cho Id tài sản trí tuệ -->
+
+                       
                         <!-- Nhập liệu cho nhiệm vụ KHCN -->
                         <div class="form-group">
                             <label asp-for="IdNhiemVuKhcn" class="control-label" style="padding-left:7px;"></label>
@@ -183,18 +196,23 @@
                             <span asp-validation-for="NamDuocChapNhanDonHopLe" class="text-danger"></span>
                         </div>
 
-                        <!-- Nút lưu thông tin -->
-                        <div class="form-group mt-4">
+                        
+                      
+                            <!-- Nút lưu thông tin -->
+                            <div class="form-group mt-4">
                             <input type="submit" value="Save" class="btn btn-primary" title="Lưu" />
                         </div>
-                    </form>
 
-                    <!-- Nút quay lại -->
+                  
+                      
+                    </form>
+                               <!-- Nút quay lại -->
                     <div style="display: inline-block;">
                         <a asp-action="Index" class="btn ">
                             <i class="fas fa-undo" title="Quay Lại "></i>
                         </a>
                         <div class="col-10"></div>
+                   
                     </div>
                 </div>
             </div>

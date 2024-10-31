@@ -20,8 +20,9 @@ namespace C500Hemis.Controllers.KHCN
         {
             _context = context;
             _logger = logger;
+            _logger.LogInformation("Controler TaiSanTriTue Đang chạy");
         }
-
+       
 
         // GET: TaiSanTriTue
         // Cập nhật phương thức Index trong controller
@@ -41,7 +42,7 @@ namespace C500Hemis.Controllers.KHCN
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while fetching data for Index view");
-                return BadRequest(new { message = "An error occurred while fetching the data. Please try again later." });
+                return BadRequest(new { message = "Đã xảy ra lỗi khi lấy dữ liệu. Vui lòng thử lại sau." });
             }
         }
 
@@ -85,17 +86,17 @@ namespace C500Hemis.Controllers.KHCN
             catch (DbUpdateException ex) // Bắt lỗi liên quan đến cập nhật cơ sở dữ liệu  
             {
                 _logger.LogError(ex, "An error occurred while updating the database for TaiSanTriTue with ID {Id}", id); // Ghi lại lỗi log  
-                return BadRequest(new { message = "An error occurred while updating the database. Please try again later." }); // Trả về thông điệp lỗi  
+                return BadRequest(new { message = "Đã xảy ra lỗi khi cập nhật cơ sở dữ liệu. Vui lòng thử lại sau." }); // Trả về thông điệp lỗi  
             }
             catch (InvalidOperationException ex) // Bắt lỗi liên quan đến hoạt động không hợp lệ  
             {
                 _logger.LogError(ex, "An invalid operation occurred for TaiSanTriTue with ID {Id}", id); // Ghi lại lỗi log  
-                return BadRequest(new { message = "An invalid operation occurred. Please try again later." }); // Trả về thông điệp lỗi  
+                return BadRequest(new { message = "Đã xảy ra một thao tác không hợp lệ. Vui lòng thử lại sau." }); // Trả về thông điệp lỗi  
             }
             catch (Exception ex) // Bắt lỗi chung  
             {
                 _logger.LogError(ex, "An error occurred while fetching data for TaiSanTriTue with ID {Id}", id); // Ghi lại lỗi log  
-                return BadRequest(new { message = "An error occurred while fetching the data. Please try again later." }); // Trả về thông điệp lỗi chung  
+                return BadRequest(new { message = "Đã xảy ra lỗi khi lấy dữ liệu. Vui lòng thử lại sau." }); // Trả về thông điệp lỗi chung  
             }
         }
         // GET: TaiSanTriTue/Details/5
@@ -127,17 +128,17 @@ namespace C500Hemis.Controllers.KHCN
             catch (ArgumentNullException ex) // Bắt lỗi khi một đối số bắt buộc bị truyền vào phương thức với giá trị null  
             {
                 _logger.LogError(ex, "A required argument was null for TbTaiSanTriTue with ID {Id}", id); // Ghi lại lỗi log  
-                return BadRequest(new { message = "A required argument was null. Please try again." }); // Trả về thông điệp lỗi  
+                return BadRequest(new { message = "Một tham số cần thiết đã được truyền vào giá trị null. Vui lòng thử lại." }); // Trả về thông điệp lỗi  
             }
             catch (TimeoutException ex) // Bắt lỗi khi một hoạt động kéo dài quá thời gian chờ được thiết lập  
             {
                 _logger.LogError(ex, "A timeout occurred while fetching data for TbTaiSanTriTue with ID {Id}", id); // Ghi lại lỗi log  
-                return BadRequest(new { message = "The request timed out. Please try again later." }); // Trả về thông điệp lỗi  
+                return BadRequest(new { message = "Yêu cầu đã hết thời gian chờ. Vui lòng thử lại sau." }); // Trả về thông điệp lỗi  
             }
             catch (Exception ex) // Bắt lỗi chung  
             {
                 _logger.LogError(ex, "An error occurred while fetching Details for TbTaiSanTriTue with ID {Id}", id); // Ghi lại lỗi log  
-                return BadRequest(new { message = "An error occurred while fetching the data. Please try again later." }); // Trả về thông điệp lỗi chung  
+                return BadRequest(new { message = "Đã xảy ra lỗi khi lấy dữ liệu. Vui lòng thử lại sau." }); // Trả về thông điệp lỗi chung  
             }
         }
 
@@ -157,7 +158,7 @@ namespace C500Hemis.Controllers.KHCN
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while preparing the Create view");
-                return BadRequest(new { message = "An error occurred while preparing the view. Please try again later." });
+                return BadRequest(new { message = "Đã xảy ra lỗi khi chuẩn bị chế độ xem. Vui lòng thử lại sau." });
             }
         }
 
@@ -243,7 +244,7 @@ namespace C500Hemis.Controllers.KHCN
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while fetching data for Edit view with ID {Id}", id);
-                return BadRequest(new { message = "An error occurred while preparing the view. Please try again later." });
+                return BadRequest(new { message = "Đã xảy ra lỗi khi chuẩn bị chế độ xem. Vui lòng thử lại sau." });
             }
         }
 
@@ -312,7 +313,7 @@ namespace C500Hemis.Controllers.KHCN
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while fetching data for Delete view with ID {Id}", id);
-                return BadRequest(new { message = "An error occurred while preparing the view. Please try again later." });
+                return BadRequest(new { message = "Đã xảy ra lỗi khi xóa dữ liệu. Vui lòng thử lại sau." });
             }
         }
 
@@ -347,7 +348,7 @@ namespace C500Hemis.Controllers.KHCN
             {
                 // Ghi lại log lỗi  
                 _logger.LogError(ex, "An error occurred while deleting TbTaiSanTriTue with ID {Id}", id);
-                return BadRequest(new { message = "An error occurred while deleting the data. Please try again later." }); // Trả về thông điệp lỗi  
+                return BadRequest(new { message = "Đã xảy ra lỗi khi xóa dữ liệu. Vui lòng thử lại sau." }); // Trả về thông điệp lỗi  
             }
         }
 

@@ -1,71 +1,238 @@
 ﻿@model IEnumerable<C500Hemis.Models.TbDoanhNghiepKhcn>
 
-@{
-    ViewData["Title"] = "Index";
-}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tìm kiếm Doanh nghiệp KHCN</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap"
+              rel="stylesheet" />
+        <style>
+            body,
+            html {
+                height: 100%;
+                margin: 0;
+                overflow-y: auto;
+                background-image: url("/images/doanhnghiep.jpg");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
 
-<h1>Index</h1>
+            .pagination {
+                display: flex;
+                justify-content: center;
+                padding: 10px;
+            }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MaDoanhNghiep)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TenDoanhNghiep)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiaDiemThanhLap)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.QuyMoDauTu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KinhPhiGopVonTuTaiSanTriTue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TyLeGopVonCuaCsgddh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdHinhThucDoanhNghiepKhcnNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaDoanhNghiep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenDoanhNghiep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaDiemThanhLap)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuyMoDauTu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KinhPhiGopVonTuTaiSanTriTue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TyLeGopVonCuaCsgddh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdHinhThucDoanhNghiepKhcnNavigation.IdHinhThucDoanhNghiepKhcn)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdDoanhNghiepKhcn">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdDoanhNghiepKhcn">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdDoanhNghiepKhcn">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            .tieude {
+                color: rgb(24, 24, 19);
+                font-size: 80px;
+                text-align: center;
+                font-family: 'Dancing Script', cursive;
+            }
+
+            .bang {
+                white-space: nowrap;
+                position: relative;
+            }
+
+                .table tr:nth-child(even) { /* màu dòng chẳn*/
+                    background-color: rgba(220, 218, 174, 0.8);
+                }
+                .table tr:nth-child(odd) {   /* màu dòng lẻ*/
+                    background-color: rgb(233, 233, 161, 0.8);
+                }
+
+            .tieudebang {
+                background-color: rgb(247, 195, 118) !important;
+            }
+
+            .noidungbang{
+                background-color: rgb(249, 149, 133);
+            }
+
+            .scrollable-table {
+                overflow-y: auto; /* Cho phép cuộn ngang */
+                max-height: 550px;
+            }
+
+            /* Định dạng cho ô nhập */
+            .search-container input[type="number"] {
+                padding: 10px; /* Thêm khoảng cách bên trong */
+                border: 1px solid #44a9b3; /* Đường viền mờ */
+                border-radius: 15px; /* Bo góc cho ô nhập */
+                width: 200px; /* Chiều rộng của ô nhập */
+                height: 30px; /* Chiều dai của ô nhập */
+                margin-right: 10px; /* Khoảng cách giữa ô nhập và nút */
+                font-size: 16px; /* Kích thước chữ */
+            }
+            /*chỉnh sủa nút thêm*/
+            .nutthem {
+                border: 1px solid rgb(250, 206, 140);
+                font-size: 25px;
+                padding: 4px 10px;
+                border-radius: 40px;
+                transition: all 0.3s ease; /* Hiệu ứng mượt */
+                outline: none; /* Bỏ viền xanh khi nhấn */
+                color: rgb(250, 206, 140);
+            }
+
+                .nutthem:hover {
+                    box-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 rgb(227, 0, 159);
+                    color: aliceblue;
+                }
+
+                .nutthem:active {
+                    background-color: rgb(250, 206, 140); /* Đổi màu khi click */
+                    transform: scale(0.95); /* Thu nhỏ nút một chút khi click */
+                }
+
+            /* Định dạng cho nút tìm kiếm */
+            .search-container button {
+                background-color: transparent;
+                color: rgb(245, 244, 242); /* Màu chữ */
+                border: none; /* Không có đường viền */
+                border-radius: 20px; /* Bo góc cho nút */
+                font-size: 20px; /* Kích thước chữ */
+                width: 30px; /* Chiều rộng của nút */
+                height: 30px; /* Chiều dai của nút */
+                cursor: pointer; /* Hiển thị con trỏ khi di chuột qua nút */
+                transition: background-color 0.3s; /* Hiệu ứng chuyển màu khi di chuột */
+                transition: transform 0.3s ease;
+            }
+                /* Hiệu ứng khi di chuột qua nút */
+                .search-container button:hover {
+                    color: rgb(250, 206, 140);
+                    background-color: transparent;
+                    transform: scale(2.0);
+                }
+
+                .search-container button:active {
+                    border: none;
+                    background-color:transparent;
+                    color: rgb(250, 206, 140);
+                }
+
+            }
+
+            .nut {
+            }
+
+            .nutcn:hover {
+                border-color: rgb(42, 136, 251);
+                color: rgb(42, 136, 251);
+                border-radius: 50px;
+                transform: scale(1.3);
+            }
+
+            .nutxoa {
+                border-color: rgb(252, 80, 32);
+                border-radius: 50px;
+                transition: transform 0.3s ease; 
+            }
+
+                .nutxoa:hover {
+                    border-color: rgb(253, 79, 31);
+                    color: #fb2020;
+                    border-radius: 50px;
+                    transform: scale(1.3);
+                }
+
+            .nutcn {
+                border-color: dodgerblue;
+                color: dodgerblue;
+                border-radius: 50px;
+                transition: transform 0.3s ease;
+            }
+
+            .pagination a {
+                margin: 0 5px;
+                text-decoration: none;
+                color: black; /* Màu mặc định */
+            }
+
+                .pagination a.active {
+                    color: blue; /* Màu xanh cho trang hiện tại */
+                    font-weight: bold; /* Đậm hơn để nổi bật */
+                }
+        </style>
+    </head>
+    <body>
+        <h1 class="tieude">Tìm kiếm Doanh nghiệp KHCN</h1>
+        <div class="bang mt-5">
+            <a asp-action="Create" class="nutthem" style="position:relative; top: -8px; left: 0px;" title="tạo mới">
+                <i class="fas fa-plus"></i>
+            </a>
+            <div class="search-container" style="width: 250px; position:absolute; top: 0px; right: 0px;" title="tìm kiếm">
+                <form asp-action="Index" method="get" style="display: flex; align-items: right">
+                    <input type="number" class="form-control" id="searchId" name="id" style="width:300px; background-color: rgb(250, 206, 140); border: 1px solid rgb(252, 255, 151); color: rgb(252, 255, 151);" placeholder="Nhập Id" required>
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+
+            @if(ViewBag.Find != null)
+        {
+            <h2 class="alert alert-danger" style="border-radius: 10px;">@ViewBag.Find</h2>
+        }
+
+            
+            <div class="container scrollable-table">
+                <!-- Thêm div với class scrollable-table -->
+                <table class="table" id="data-table">
+                    <thead>
+                        <tr class="tieudebang">
+                            <th class="text-center">Tùy Chọn</th>
+                            <th>@Html.DisplayNameFor(model => model.IdDoanhNghiepKhcn)</th>
+                            <th>@Html.DisplayNameFor(model => model.MaDoanhNghiep)</th>
+                            <th>@Html.DisplayNameFor(model => model.TenDoanhNghiep)</th>
+                            <th>@Html.DisplayNameFor(model => model.DiaDiemThanhLap)</th>
+                            <th>@Html.DisplayNameFor(model => model.QuyMoDauTu)</th>
+                            <th>@Html.DisplayNameFor(model => model.KinhPhiGopVonTuTaiSanTriTue)</th>
+                            <th>@Html.DisplayNameFor(model => model.TyLeGopVonCuaCsgddh)</th>
+                            <th>@Html.DisplayNameFor(model => model.IdHinhThucDoanhNghiepKhcnNavigation)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="noidungbang" style="border-right: 1px solid;">
+                                <a asp-action="Edit" asp-route-id="@item.IdDoanhNghiepKhcn" class="btn btn-sm nutcn mx-1" title="chỉnh sửa">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.IdDoanhNghiepKhcn" class="btn btn-sm nutcn mx-1" title="chi tiết">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.IdDoanhNghiepKhcn" class="btn btn-sm nutxoa mx-1" style="color: rgb(246, 102, 45);" title="xóa">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.IdDoanhNghiepKhcn)</td>
+                            <td>@Html.DisplayFor(modelItem => item.MaDoanhNghiep)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TenDoanhNghiep)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DiaDiemThanhLap)</td>
+                            <td>@Html.DisplayFor(modelItem => item.QuyMoDauTu)</td>
+                            <td>@Html.DisplayFor(modelItem => item.KinhPhiGopVonTuTaiSanTriTue)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TyLeGopVonCuaCsgddh)</td>
+                            <td>@Html.DisplayFor(modelItem => item.IdHinhThucDoanhNghiepKhcnNavigation.HinhThucDoanhNghiepKhcn)</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                <div class="pagination" id="pagination"></div>
+                
+            </div>
+            <h2 class="alert alert-info" style="text-align: center; background-color: transparent; color: rgb(76, 129, 179); border: none;"> số bản ghi hiện tại: @Model.Count()</h2>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    </body>
+</html>

@@ -48,9 +48,16 @@ namespace C500Hemis.Controllers.NH
         // GET: NguoiHocVayTinDung/Create
         public IActionResult Create()
         {
-            ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "IdHocVien");
-            ViewData["TinhTrangVay"] = new SelectList(_context.DmTuyChons, "IdTuyChon", "IdTuyChon");
-            return View();
+            try
+            {
+                ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "HocVien", "HocVien");
+                ViewData["TinhTrangVay"] = new SelectList(_context.DmTuyChons, "TuyChon", "TuyChon");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
         }
 
         // POST: NguoiHocVayTinDung/Create
@@ -60,33 +67,47 @@ namespace C500Hemis.Controllers.NH
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdNguoiHocVayTinDung,IdHocVien,SoTienDuocVay,TenToChucTinDung,NgayVay,DiaChi,ThoiHanVay,TinhTrangVay")] TbNguoiHocVayTinDung tbNguoiHocVayTinDung)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(tbNguoiHocVayTinDung);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(tbNguoiHocVayTinDung);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "HocVien", tbNguoiHocVayTinDung.IdHocVien);
+                ViewData["TinhTrangVay"] = new SelectList(_context.DmTuyChons, "IdTuyChon", "TuyChon", tbNguoiHocVayTinDung.TinhTrangVay);
+                return View(tbNguoiHocVayTinDung);
             }
-            ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "IdHocVien", tbNguoiHocVayTinDung.IdHocVien);
-            ViewData["TinhTrangVay"] = new SelectList(_context.DmTuyChons, "IdTuyChon", "IdTuyChon", tbNguoiHocVayTinDung.TinhTrangVay);
-            return View(tbNguoiHocVayTinDung);
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
         }
 
         // GET: NguoiHocVayTinDung/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var tbNguoiHocVayTinDung = await _context.TbNguoiHocVayTinDungs.FindAsync(id);
-            if (tbNguoiHocVayTinDung == null)
-            {
-                return NotFound();
+                var tbNguoiHocVayTinDung = await _context.TbNguoiHocVayTinDungs.FindAsync(id);
+                if (tbNguoiHocVayTinDung == null)
+                {
+                    return NotFound();
+                }
+                ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "HocVien", tbNguoiHocVayTinDung.IdHocVien);
+                ViewData["TinhTrangVay"] = new SelectList(_context.DmTuyChons, "IdTuyChon", "TuyChon", tbNguoiHocVayTinDung.TinhTrangVay);
+                return View(tbNguoiHocVayTinDung);
             }
-            ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "IdHocVien", tbNguoiHocVayTinDung.IdHocVien);
-            ViewData["TinhTrangVay"] = new SelectList(_context.DmTuyChons, "IdTuyChon", "IdTuyChon", tbNguoiHocVayTinDung.TinhTrangVay);
-            return View(tbNguoiHocVayTinDung);
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
         }
 
         // POST: NguoiHocVayTinDung/Edit/5
@@ -96,54 +117,68 @@ namespace C500Hemis.Controllers.NH
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdNguoiHocVayTinDung,IdHocVien,SoTienDuocVay,TenToChucTinDung,NgayVay,DiaChi,ThoiHanVay,TinhTrangVay")] TbNguoiHocVayTinDung tbNguoiHocVayTinDung)
         {
-            if (id != tbNguoiHocVayTinDung.IdNguoiHocVayTinDung)
+            try
             {
-                return NotFound();
-            }
+                if (id != tbNguoiHocVayTinDung.IdNguoiHocVayTinDung)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(tbNguoiHocVayTinDung);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TbNguoiHocVayTinDungExists(tbNguoiHocVayTinDung.IdNguoiHocVayTinDung))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(tbNguoiHocVayTinDung);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!TbNguoiHocVayTinDungExists(tbNguoiHocVayTinDung.IdNguoiHocVayTinDung))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "HocVien", tbNguoiHocVayTinDung.IdHocVien);
+                ViewData["TinhTrangVay"] = new SelectList(_context.DmTuyChons, "IdTuyChon", "TuyChon", tbNguoiHocVayTinDung.TinhTrangVay);
+                return View(tbNguoiHocVayTinDung);
             }
-            ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "IdHocVien", tbNguoiHocVayTinDung.IdHocVien);
-            ViewData["TinhTrangVay"] = new SelectList(_context.DmTuyChons, "IdTuyChon", "IdTuyChon", tbNguoiHocVayTinDung.TinhTrangVay);
-            return View(tbNguoiHocVayTinDung);
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         // GET: NguoiHocVayTinDung/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var tbNguoiHocVayTinDung = await _context.TbNguoiHocVayTinDungs
-                .Include(t => t.IdHocVienNavigation)
-                .Include(t => t.TinhTrangVayNavigation)
-                .FirstOrDefaultAsync(m => m.IdNguoiHocVayTinDung == id);
-            if (tbNguoiHocVayTinDung == null)
+                var tbNguoiHocVayTinDung = await _context.TbNguoiHocVayTinDungs
+                    .Include(t => t.IdHocVienNavigation)
+                    .Include(t => t.TinhTrangVayNavigation)
+                    .FirstOrDefaultAsync(m => m.IdNguoiHocVayTinDung == id);
+                if (tbNguoiHocVayTinDung == null)
+                {
+                    return NotFound();
+                }
+
+                return View(tbNguoiHocVayTinDung);
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                return BadRequest();
             }
-
-            return View(tbNguoiHocVayTinDung);
         }
 
         // POST: NguoiHocVayTinDung/Delete/5
@@ -151,14 +186,21 @@ namespace C500Hemis.Controllers.NH
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tbNguoiHocVayTinDung = await _context.TbNguoiHocVayTinDungs.FindAsync(id);
-            if (tbNguoiHocVayTinDung != null)
+            try
             {
-                _context.TbNguoiHocVayTinDungs.Remove(tbNguoiHocVayTinDung);
-            }
+                var tbNguoiHocVayTinDung = await _context.TbNguoiHocVayTinDungs.FindAsync(id);
+                if (tbNguoiHocVayTinDung != null)
+                {
+                    _context.TbNguoiHocVayTinDungs.Remove(tbNguoiHocVayTinDung);
+                }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         private bool TbNguoiHocVayTinDungExists(int id)

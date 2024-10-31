@@ -28,31 +28,45 @@ namespace C500Hemis.Controllers.NH
         // GET: ThongTinViecLamSauTotNghiep/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var tbThongTinViecLamSauTotNghiep = await _context.TbThongTinViecLamSauTotNghieps
-                .Include(t => t.IdHinhThucTuyenDungNavigation)
-                .Include(t => t.IdHocVienNavigation)
-                .Include(t => t.IdViTriViecLamNavigation)
-                .FirstOrDefaultAsync(m => m.IdThongTinViecLamSauTotNghiep == id);
-            if (tbThongTinViecLamSauTotNghiep == null)
+                var tbThongTinViecLamSauTotNghiep = await _context.TbThongTinViecLamSauTotNghieps
+                    .Include(t => t.IdHinhThucTuyenDungNavigation)
+                    .Include(t => t.IdHocVienNavigation)
+                    .Include(t => t.IdViTriViecLamNavigation)
+                    .FirstOrDefaultAsync(m => m.IdThongTinViecLamSauTotNghiep == id);
+                if (tbThongTinViecLamSauTotNghiep == null)
+                {
+                    return NotFound();
+                }
+
+                return View(tbThongTinViecLamSauTotNghiep);
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                return View(ex);
             }
-
-            return View(tbThongTinViecLamSauTotNghiep);
         }
 
         // GET: ThongTinViecLamSauTotNghiep/Create
         public IActionResult Create()
         {
-            ViewData["IdHinhThucTuyenDung"] = new SelectList(_context.DmHinhThucTuyenDungs, "IdHinhThucTuyenDung", "IdHinhThucTuyenDung");
-            ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "IdHocVien");
-            ViewData["IdViTriViecLam"] = new SelectList(_context.DmViTriViecLams, "IdViTriViecLam", "IdViTriViecLam");
-            return View();
+            try
+            {
+                ViewData["IdHinhThucTuyenDung"] = new SelectList(_context.DmHinhThucTuyenDungs, "IdHinhThucTuyenDung", "HinhThucTuyenDung");
+                ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "HocVien");
+                ViewData["IdViTriViecLam"] = new SelectList(_context.DmViTriViecLams, "IdViTriViecLam", "ViTriViecLam");
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
         }
 
         // POST: ThongTinViecLamSauTotNghiep/Create
@@ -62,35 +76,49 @@ namespace C500Hemis.Controllers.NH
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdThongTinViecLamSauTotNghiep,IdHocVien,TenDonViCapBang,DonViTuyenDung,IdHinhThucTuyenDung,ThoiGianTuyenDung,IdViTriViecLam,MucLuongKhoiDiem")] TbThongTinViecLamSauTotNghiep tbThongTinViecLamSauTotNghiep)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(tbThongTinViecLamSauTotNghiep);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(tbThongTinViecLamSauTotNghiep);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["IdHinhThucTuyenDung"] = new SelectList(_context.DmHinhThucTuyenDungs, "IdHinhThucTuyenDung", "HinhThucTuyenDung", tbThongTinViecLamSauTotNghiep.IdHinhThucTuyenDung);
+                ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "HocVien", tbThongTinViecLamSauTotNghiep.IdHocVien);
+                ViewData["IdViTriViecLam"] = new SelectList(_context.DmViTriViecLams, "IdViTriViecLam", "ViTriViecLam", tbThongTinViecLamSauTotNghiep.IdViTriViecLam);
+                return View(tbThongTinViecLamSauTotNghiep);
             }
-            ViewData["IdHinhThucTuyenDung"] = new SelectList(_context.DmHinhThucTuyenDungs, "IdHinhThucTuyenDung", "IdHinhThucTuyenDung", tbThongTinViecLamSauTotNghiep.IdHinhThucTuyenDung);
-            ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "IdHocVien", tbThongTinViecLamSauTotNghiep.IdHocVien);
-            ViewData["IdViTriViecLam"] = new SelectList(_context.DmViTriViecLams, "IdViTriViecLam", "IdViTriViecLam", tbThongTinViecLamSauTotNghiep.IdViTriViecLam);
-            return View(tbThongTinViecLamSauTotNghiep);
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
         }
 
         // GET: ThongTinViecLamSauTotNghiep/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var tbThongTinViecLamSauTotNghiep = await _context.TbThongTinViecLamSauTotNghieps.FindAsync(id);
-            if (tbThongTinViecLamSauTotNghiep == null)
+                var tbThongTinViecLamSauTotNghiep = await _context.TbThongTinViecLamSauTotNghieps.FindAsync(id);
+                if (tbThongTinViecLamSauTotNghiep == null)
+                {
+                    return NotFound();
+                }
+                ViewData["IdHinhThucTuyenDung"] = new SelectList(_context.DmHinhThucTuyenDungs, "IdHinhThucTuyenDung", "HinhThucTuyenDung", tbThongTinViecLamSauTotNghiep.IdHinhThucTuyenDung);
+                ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "HocVien", tbThongTinViecLamSauTotNghiep.IdHocVien);
+                ViewData["IdViTriViecLam"] = new SelectList(_context.DmViTriViecLams, "IdViTriViecLam", "ViTriViecLam", tbThongTinViecLamSauTotNghiep.IdViTriViecLam);
+                return View(tbThongTinViecLamSauTotNghiep);
+            }
+            catch (Exception ex)
             {
                 return NotFound();
             }
-            ViewData["IdHinhThucTuyenDung"] = new SelectList(_context.DmHinhThucTuyenDungs, "IdHinhThucTuyenDung", "IdHinhThucTuyenDung", tbThongTinViecLamSauTotNghiep.IdHinhThucTuyenDung);
-            ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "IdHocVien", tbThongTinViecLamSauTotNghiep.IdHocVien);
-            ViewData["IdViTriViecLam"] = new SelectList(_context.DmViTriViecLams, "IdViTriViecLam", "IdViTriViecLam", tbThongTinViecLamSauTotNghiep.IdViTriViecLam);
-            return View(tbThongTinViecLamSauTotNghiep);
         }
 
         // POST: ThongTinViecLamSauTotNghiep/Edit/5
@@ -100,56 +128,70 @@ namespace C500Hemis.Controllers.NH
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdThongTinViecLamSauTotNghiep,IdHocVien,TenDonViCapBang,DonViTuyenDung,IdHinhThucTuyenDung,ThoiGianTuyenDung,IdViTriViecLam,MucLuongKhoiDiem")] TbThongTinViecLamSauTotNghiep tbThongTinViecLamSauTotNghiep)
         {
-            if (id != tbThongTinViecLamSauTotNghiep.IdThongTinViecLamSauTotNghiep)
+            try
             {
-                return NotFound();
-            }
+                if (id != tbThongTinViecLamSauTotNghiep.IdThongTinViecLamSauTotNghiep)
+                {
+                    return NotFound();
+                }
 
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    _context.Update(tbThongTinViecLamSauTotNghiep);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TbThongTinViecLamSauTotNghiepExists(tbThongTinViecLamSauTotNghiep.IdThongTinViecLamSauTotNghiep))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(tbThongTinViecLamSauTotNghiep);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!TbThongTinViecLamSauTotNghiepExists(tbThongTinViecLamSauTotNghiep.IdThongTinViecLamSauTotNghiep))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                ViewData["IdHinhThucTuyenDung"] = new SelectList(_context.DmHinhThucTuyenDungs, "IdHinhThucTuyenDung", "HinhThucTuyenDung", tbThongTinViecLamSauTotNghiep.IdHinhThucTuyenDung);
+                ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "HocVien", tbThongTinViecLamSauTotNghiep.IdHocVien);
+                ViewData["IdViTriViecLam"] = new SelectList(_context.DmViTriViecLams, "IdViTriViecLam", "ViTriViecLam", tbThongTinViecLamSauTotNghiep.IdViTriViecLam);
+                return View(tbThongTinViecLamSauTotNghiep);
             }
-            ViewData["IdHinhThucTuyenDung"] = new SelectList(_context.DmHinhThucTuyenDungs, "IdHinhThucTuyenDung", "IdHinhThucTuyenDung", tbThongTinViecLamSauTotNghiep.IdHinhThucTuyenDung);
-            ViewData["IdHocVien"] = new SelectList(_context.TbHocViens, "IdHocVien", "IdHocVien", tbThongTinViecLamSauTotNghiep.IdHocVien);
-            ViewData["IdViTriViecLam"] = new SelectList(_context.DmViTriViecLams, "IdViTriViecLam", "IdViTriViecLam", tbThongTinViecLamSauTotNghiep.IdViTriViecLam);
-            return View(tbThongTinViecLamSauTotNghiep);
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+            }
         }
 
         // GET: ThongTinViecLamSauTotNghiep/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var tbThongTinViecLamSauTotNghiep = await _context.TbThongTinViecLamSauTotNghieps
-                .Include(t => t.IdHinhThucTuyenDungNavigation)
-                .Include(t => t.IdHocVienNavigation)
-                .Include(t => t.IdViTriViecLamNavigation)
-                .FirstOrDefaultAsync(m => m.IdThongTinViecLamSauTotNghiep == id);
-            if (tbThongTinViecLamSauTotNghiep == null)
+                var tbThongTinViecLamSauTotNghiep = await _context.TbThongTinViecLamSauTotNghieps
+                    .Include(t => t.IdHinhThucTuyenDungNavigation)
+                    .Include(t => t.IdHocVienNavigation)
+                    .Include(t => t.IdViTriViecLamNavigation)
+                    .FirstOrDefaultAsync(m => m.IdThongTinViecLamSauTotNghiep == id);
+                if (tbThongTinViecLamSauTotNghiep == null)
+                {
+                    return NotFound();
+                }
+
+                return View(tbThongTinViecLamSauTotNghiep);
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                return View(ex.Message);
             }
-
-            return View(tbThongTinViecLamSauTotNghiep);
         }
 
         // POST: ThongTinViecLamSauTotNghiep/Delete/5
@@ -157,14 +199,21 @@ namespace C500Hemis.Controllers.NH
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tbThongTinViecLamSauTotNghiep = await _context.TbThongTinViecLamSauTotNghieps.FindAsync(id);
-            if (tbThongTinViecLamSauTotNghiep != null)
+            try
             {
-                _context.TbThongTinViecLamSauTotNghieps.Remove(tbThongTinViecLamSauTotNghiep);
-            }
+                var tbThongTinViecLamSauTotNghiep = await _context.TbThongTinViecLamSauTotNghieps.FindAsync(id);
+                if (tbThongTinViecLamSauTotNghiep != null)
+                {
+                    _context.TbThongTinViecLamSauTotNghieps.Remove(tbThongTinViecLamSauTotNghiep);
+                }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+            }
         }
 
         private bool TbThongTinViecLamSauTotNghiepExists(int id)

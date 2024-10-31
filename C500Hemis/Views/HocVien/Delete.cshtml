@@ -1,161 +1,239 @@
-﻿@model C500Hemis.Models.TbHocVien
+﻿@model C500Hemis.Models.TbHocVien  // Khai báo model cho view là đối tượng TbHocVien
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete";  // Đặt tiêu đề cho trang là "Delete"
 }
-<style>
-    h1 {
-        font-size: 40px;
-        margin-bottom: 20px;
-        text-align: center;
-    }
 
-    h3 {
-        text-align: center;
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
+<head>
+    <!-- Thư viện icon Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Liên kết tới Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@100..900&display=swap" rel="stylesheet">
 
-    h4 {
-        text-align: center;
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
+    <style>
+        /* ĐỊNH DẠNG CƠ BẢN CHO BODY */
+        body {
+            background-color: #fff9e9;
+            color: #553f3a;
+            font-family: "IBM Plex Serif", serif;
+            font-weight: 500;
+            font-style: normal;
+        }
 
-    .form-container {
-        padding: 30px;
-        margin: 0 auto;
-        width: 70%;
-    }
+        /* Định dạng container cho form */
+        .container {
+            padding: 30px;
+            margin: auto;
+            max-width: 800px;
+            background-color: #fdecea;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
 
-    dl.row dt, dl.row dd {
-        margin-bottom: 10px;
-    }
+        /* ĐỊNH DẠNG CÁC TIÊU ĐỀ */
+        h1, h3, h4 {
+            text-align: center;
+            color: #721c24;
+        }
 
-    dt {
-        font-weight: bold;
-        border: 2px solid #dee2e6;
-        border-radius: 8px;
-        padding: 10px;
-    }
+        /* ĐỊNH DẠNG TIÊU ĐỀ CHÍNH */
+        h1 {
+            font-size: 40px;
+            margin-bottom: 30px;
+        }
 
-    dd {
-        margin-bottom: 10px;
-        border: 2px solid #dee2e6;
-        border-radius: 8px;
-        padding: 10px;
-    }
+        /* ĐỊNH DẠNG TIÊU ĐỀ PHỤ */
+        h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #8b0000;
+        }
 
-    .btn {
-        padding: 10px 20px;
-        font-size: 16px;
-        margin-top: 10px;
-        margin-right: 10px;
-        border-radius: 5px;
-        text-decoration: none;
-    }
+        /* ĐỊNH DẠNG TIÊU ĐỀ THÔNG TIN HỌC VIÊN */
+        h4 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
 
-    hr {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        border: 0;
-        border-top: 1px solid #dee2e6;
-    }
+        /* ĐỊNH DẠNG CÁC CẶP GIÁ TRỊ THÔNG TIN HỌC VIÊN */
+        dl.row dt, dl.row dd {
+            margin-bottom: 15px;
+        }
 
-    form {
-        padding-bottom: 50px;
-    }
-</style>
-<h1>Xóa</h1>
+        /* TIÊU ĐỀ CỦA THÔNG TIN */
+        dt {
+            font-weight: bold;
+            background-color: #f9d6d5;
+            border-radius: 8px;
+            padding: 10px;
+        }
 
-<h3>Bạn có chắc muốn xóa không</h3>
-<div>
-    <h4>Học viên</h4>
+        /* NỘI DUNG CỦA THÔNG TIN */
+        dd {
+            background-color: #fdf2f2;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        /* CÁC NÚT */
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-right: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* NÚT XÓA */
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+            /* Định dạng khi nút xóa được hover */
+            .btn-danger:hover {
+                background-color: #c82333;
+            }
+
+        /* Định dạng cho biểu tượng trong nút */
+        .btn i {
+            margin-right: 5px;
+        }
+
+        /* Định dạng cho đường kẻ ngang */
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 0;
+            border-top: 1px solid #dee2e6;
+        }
+
+        /* Định dạng cho bảng hiển thị */
+        table {
+            width: 100%;
+        }
+
+        /* Căn giữa văn bản trong các ô */
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<!-- Tiêu đề chính của trang -->
+<h1>Xóa Học Viên</h1>
+
+<!-- Tiêu đề phụ thông báo -->
+<h3>Bạn có chắc muốn xóa không?</h3>
+
+<div class="container">
+    <!-- Tiêu đề cho phần thông tin học viên -->
+    <h4>Thông tin học viên</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.MaHocVien)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.MaHocVien)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Sdt)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Sdt)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.SoSoBaoHiem)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.SoSoBaoHiem)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.NoiSinh)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.NoiSinh)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.QueQuan)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.QueQuan)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IdHuyenNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdHuyenNavigation.IdHuyen)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IdHuyenNavigation.TenHuyen)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IdLoaiKhuyetTatNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdLoaiKhuyetTatNavigation.IdLoaiKhuyetTat)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IdLoaiKhuyetTatNavigation.LoaiKhuyetTat)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IdNguoiNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdNguoiNavigation.IdNguoi)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IdNguoiNavigation.name)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IdTinhNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdTinhNavigation.IdTinh)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IdTinhNavigation.TenTinh)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IdXaNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdXaNavigation.IdXa)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IdXaNavigation.TenXa)
         </dd>
     </dl>
-    
+
+    <!-- Tạo bảng chứa các nút XÓA và quay lại -->
     <table>
         <tr>
             <td>
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="IdHocVien" />
-        <input type="submit" value="Xóa" class="btn btn-danger" /> 
-    </form>
-    </td>
-    <td>
-    <form asp-action="Index">
-        <input type="hidden" asp-for="IdHocVien" />
-        <input type="submit" value="Về trang chủ" class="btn btn-danger" /> 
-    </form>
-    </td>
-    </tr>
+                <!-- Form để gửi yêu cầu xóa học viên -->
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="IdHocVien" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-trash"></i> Xóa
+                    </button>
+                </form>
+            </td>
+            <td>
+                <!-- Form để quay về trang danh sách học viên -->
+                <form asp-action="Index">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-arrow-left"></i> Về trang chủ
+                    </button>
+                </form>
+            </td>
+        </tr>
     </table>
 </div>

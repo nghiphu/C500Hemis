@@ -1,146 +1,193 @@
 ﻿@model C500Hemis.Models.TbHocVien
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details"; // Đặt tiêu đề cho trang
 }
-<style>
-    h1 {
-        font-size: 40px;
-        margin-bottom: 20px;
-        text-align: center;
-    }
 
-    h3 {
-        text-align: center;
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
+<head>
+    <!-- Kết nối các thư viện CSS cho biểu tượng và font chữ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@100..900&display=swap" rel="stylesheet">
 
-    h4 {
-        text-align: center;
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
+    <style>
+        /* Thiết lập các thuộc tính CSS cho trang */
+        body {
+            background-color: #fff9e9; /* Màu nền cho trang */
+            color: #553f3a; /* Màu chữ */
+            font-family: "IBM Plex Serif", serif; /* Font chữ */
+            font-weight: 500; /* Độ dày chữ */
+            font-style: normal; /* Kiểu chữ */
+        }
 
-    .form-container {
-        padding: 30px;
-        margin: 0 auto;
-        width: 70%;
-    }
+        .container {
+            padding: 30px; /* Padding cho container */
+            margin: auto; /* Căn giữa container */
+            max-width: 800px; /* Chiều rộng tối đa của container */
+            background-color: #ccdee2; /* Màu nền cho container */
+            border-radius: 10px; /* Bo tròn góc cho container */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Đổ bóng cho container */
+        }
 
-    dl.row dt, dl.row dd {
-        margin-bottom: 10px;
-    }
+        h1, h4 {
+            text-align: center; /* Căn giữa tiêu đề */
+            margin-bottom: 30px; /* Khoảng cách dưới cho tiêu đề */
+            color: #553f3a; /* Màu chữ cho tiêu đề */
+        }
 
-    dt {
-        font-weight: bold;
-        border: 2px solid #dee2e6;
-        border-radius: 8px;
-        padding: 10px;
-    }
+        h1 {
+            font-size: 40px; /* Kích thước chữ cho h1 */
+        }
 
-    dd {
-        margin-bottom: 10px;
-        border: 2px solid #dee2e6;
-        border-radius: 8px;
-        padding: 10px;
-    }
+        h4 {
+            font-size: 28px; /* Kích thước chữ cho h4 */
+            font-weight: bold; /* Độ dày chữ cho h4 */
+        }
 
-    .btn {
-        padding: 10px 20px;
-        font-size: 16px;
-        margin-top: 10px;
-        margin-right: 10px;
-        border-radius: 5px;
-        text-decoration: none;
-    }
+        dl.row dt, dl.row dd {
+            margin-bottom: 15px; /* Khoảng cách giữa các phần tử trong danh sách */
+        }
 
-    hr {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        border: 0;
-        border-top: 1px solid #dee2e6;
-    }
-    form{
-        padding-bottom: 50px;
-    }
-</style>
-<h1>Details</h1>
+        dt {
+            font-weight: bold; /* Độ dày chữ cho tiêu đề trong danh sách */
+            background-color: #e3e6e9; /* Màu nền cho tiêu đề trong danh sách */
+            border-radius: 8px; /* Bo tròn góc cho tiêu đề */
+            padding: 10px; /* Padding cho tiêu đề */
+        }
 
-<div>
-    <h4>TbHocVien</h4>
-    <hr />
+        dd {
+            background-color: #f9fafb; /* Màu nền cho nội dung trong danh sách */
+            border-radius: 8px; /* Bo tròn góc cho nội dung */
+            padding: 10px; /* Padding cho nội dung */
+        }
+
+        .btn {
+            padding: 10px 20px; /* Padding cho nút */
+            font-size: 16px; /* Kích thước chữ cho nút */
+            margin-top: 20px; /* Khoảng cách trên cho nút */
+            margin-right: 10px; /* Khoảng cách bên phải cho nút */
+            border-radius: 5px; /* Bo tròn góc cho nút */
+            text-decoration: none; /* Không gạch chân cho nút */
+            background-color: #4b9ab4; /* Màu nền cho nút */
+            color: #FFFFFF; /* Màu chữ cho nút */
+            display: inline-block; /* Hiển thị nút dưới dạng inline block */
+        }
+
+            .btn:hover {
+                background-color: #A1D8EC; /* Màu nền khi hover nút */
+            }
+
+            .btn i {
+                margin-right: 5px; /* Khoảng cách bên phải cho biểu tượng trong nút */
+            }
+
+        hr {
+            margin-top: 20px; /* Khoảng cách trên cho đường kẻ */
+            margin-bottom: 20px; /* Khoảng cách dưới cho đường kẻ */
+            border: 0; /* Không có viền cho đường kẻ */
+            border-top: 1px solid #dee2e6; /* Đường kẻ trên với màu sắc */
+        }
+    </style>
+</head>
+
+<h1>Chi tiết Học Viên</h1> <!-- Tiêu đề lớn cho trang -->
+
+<div class="container">
+    <!-- Bắt đầu container chứa thông tin học viên -->
+    <h4>Thông tin chi tiết</h4> <!-- Tiêu đề cho phần thông tin chi tiết -->
+    <hr /> <!-- Đường kẻ phân cách -->
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaHocVien)
+        <!-- Danh sách định nghĩa để hiển thị thông tin -->
+        <!-- Mỗi cặp dt (tiêu đề) và dd (nội dung) hiển thị thông tin của học viên -->
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.MaHocVien) <!-- Hiển thị tên thuộc tính -->
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaHocVien)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.MaHocVien) <!-- Hiển thị giá trị của thuộc tính -->
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Sdt)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Sdt)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.SoSoBaoHiem)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.SoSoBaoHiem)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.NoiSinh)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.NoiSinh)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.QueQuan)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.QueQuan)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IdHuyenNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdHuyenNavigation.IdHuyen)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IdHuyenNavigation.TenHuyen) <!-- Hiển thị tên huyện -->
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IdLoaiKhuyetTatNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdLoaiKhuyetTatNavigation.IdLoaiKhuyetTat)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IdLoaiKhuyetTatNavigation.LoaiKhuyetTat) <!-- Hiển thị loại khuyết tật -->
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IdNguoiNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdNguoiNavigation.IdNguoi)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IdNguoiNavigation.name) <!-- Hiển thị tên người liên quan -->
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IdTinhNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdTinhNavigation.IdTinh)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IdTinhNavigation.TenTinh) <!-- Hiển thị tên tỉnh -->
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.IdXaNavigation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdXaNavigation.IdXa)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IdXaNavigation.TenXa) <!-- Hiển thị tên xã -->
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdHocVien"><input type="submit" value="Chỉnh sửa" class="btn btn-primary" /></a> |
-    <a asp-action="Index"><input type="submit" value="Về trang chủ" class="btn btn-primary" /></a>
-</div>
+
+    <div>
+        <!-- Bắt đầu khối chứa nút -->
+        <!-- Nút chỉnh sửa thông tin học viên -->
+        <a asp-action="Edit" asp-route-id="@Model?.IdHocVien" class="btn">
+            <i class="fa-solid fa-pen"></i>Chỉnh sửa
+        </a>
+        <!-- Nút quay lại trang chủ -->
+        <a asp-action="Index" class="btn">
+            <i class="fa-solid fa-arrow-left"></i>Về trang chủ
+        </a>
+    </div>
+</div> <!-- Kết thúc container -->

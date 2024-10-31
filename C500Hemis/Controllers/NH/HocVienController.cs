@@ -83,6 +83,8 @@ namespace C500Hemis.Controllers.NH
         }
 
         // POST: HocVien/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
 
@@ -90,7 +92,6 @@ namespace C500Hemis.Controllers.NH
         {
             return await _context.TbHocViens.AnyAsync(e => e.IdHocVien == id);
         }
-
         // POST: HocVien/Create
         // POST: HocVien/Create
         [HttpPost]
@@ -224,19 +225,14 @@ namespace C500Hemis.Controllers.NH
             {
                 if (id == null) return NotFound();
 
-                var tbHocVien = await _context.TbHocViens
-                    .Include(t => t.IdHuyenNavigation)
-                    .Include(t => t.IdLoaiKhuyetTatNavigation)
-                    .Include(t => t.IdNguoiNavigation)
-                    .Include(t => t.IdTinhNavigation)
-                    .Include(t => t.IdXaNavigation)
-                    .FirstOrDefaultAsync(m => m.IdHocVien == id);
-
-                if (tbHocVien == null) return NotFound();
-
-                return View(tbHocVien);
-            }
-            catch (Exception ex)
+            var tbHocVien = await _context.TbHocViens
+                .Include(t => t.IdHuyenNavigation)
+                .Include(t => t.IdLoaiKhuyetTatNavigation)
+                .Include(t => t.IdNguoiNavigation)
+                .Include(t => t.IdTinhNavigation)
+                .Include(t => t.IdXaNavigation)
+                .FirstOrDefaultAsync(m => m.IdHocVien == id);
+            if (tbHocVien == null)
             {
                 Console.WriteLine("Foreign Key Constraint Violation.");
                 return BadRequest(ex.Message);

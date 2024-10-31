@@ -1,100 +1,193 @@
 ﻿@model C500Hemis.Models.TbHocVien
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit"; // Đặt tiêu đề trang
 }
-<style>
-    h1, h4  {
-        text-align: center;
-    }
-    div {
-        margin:auto;
-    }
-</style>
-<h1>Chỉnh sửa</h1>
 
-<h4>Học viên</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdHocVien" />
-            <div class="form-group">
-                <label asp-for="MaHocVien" class="control-label"></label>
-                <input asp-for="MaHocVien" class="form-control" />
-                <span asp-validation-for="MaHocVien" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdNguoi" class="control-label"></label>
-                <select asp-for="IdNguoi" class="form-control" asp-items="ViewBag.IdNguoi"></select>
-                <span asp-validation-for="IdNguoi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Sdt" class="control-label"></label>
-                <input asp-for="Sdt" class="form-control" />
-                <span asp-validation-for="Sdt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SoSoBaoHiem" class="control-label"></label>
-                <input asp-for="SoSoBaoHiem" class="form-control" />
-                <span asp-validation-for="SoSoBaoHiem" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdLoaiKhuyetTat" class="control-label"></label>
-                <select asp-for="IdLoaiKhuyetTat" class="form-control" asp-items="ViewBag.IdLoaiKhuyetTat"></select>
-                <span asp-validation-for="IdLoaiKhuyetTat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdTinh" class="control-label"></label>
-                <select asp-for="IdTinh" class="form-control" asp-items="ViewBag.IdTinh"></select>
-                <span asp-validation-for="IdTinh" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdHuyen" class="control-label"></label>
-                <select asp-for="IdHuyen" class="form-control" asp-items="ViewBag.IdHuyen"></select>
-                <span asp-validation-for="IdHuyen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdXa" class="control-label"></label>
-                <select asp-for="IdXa" class="form-control" asp-items="ViewBag.IdXa"></select>
-                <span asp-validation-for="IdXa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NoiSinh" class="control-label"></label>
-                <input asp-for="NoiSinh" class="form-control" />
-                <span asp-validation-for="NoiSinh" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="QueQuan" class="control-label"></label>
-                <input asp-for="QueQuan" class="form-control" />
-                <span asp-validation-for="QueQuan" class="text-danger"></span>
-            </div>
-            <table>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <input type="submit" value="Lưu" class="btn btn-primary" />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <a asp-action="Index"><input type="submit" value="Về trang chủ" class="btn btn-primary"</a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </div>
+<head>
+    <!-- Kết nối các thư viện CSS cho biểu tượng và font chữ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Thiết lập các thuộc tính CSS cho trang */
+        body {
+            background-color: #fff9e9; /* Màu nền trang */
+            color: #553f3a; /* Màu chữ */
+            font-family: "IBM Plex Serif", serif; /* Font chữ */
+            font-weight: 500; /* Độ dày chữ */
+            font-style: normal; /* Kiểu chữ */
+        }
+
+        .container {
+            padding: 20px; /* Padding cho container */
+            border-radius: 10px; /* Bo tròn góc */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Đổ bóng cho container */
+            max-width: 600px; /* Chiều rộng tối đa */
+            width: 100%; /* Chiều rộng 100% */
+            margin: auto; /* Căn giữa container */
+            background-color: #ccdee2; /* Màu nền cho container */
+        }
+
+        .form-group {
+            display: flex; /* Sử dụng flexbox cho layout */
+            align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+            margin-bottom: 15px; /* Khoảng cách giữa các nhóm */
+            width: 100%; /* Chiều rộng 100% */
+        }
+
+            .form-group label {
+                font-weight: bold; /* Độ dày chữ cho nhãn */
+                color: #553f3a; /* Màu chữ cho nhãn */
+                width: 100%; /* Chiều rộng 100% */
+                margin-right: 10px; /* Khoảng cách bên phải cho nhãn */
+            }
+
+        label {
+            font-size: 16px; /* Kích thước chữ cho nhãn */
+            color: #553f3a; /* Màu chữ */
+        }
+
+        h1 {
+            text-align: center; /* Căn giữa tiêu đề */
+            color: #553f3a; /* Màu chữ */
+        }
+
+        input[type="submit"] {
+            width: 100%; /* Chiều rộng 100% cho nút submit */
+            padding: 10px; /* Padding cho nút submit */
+            background-color: #4b9ab4; /* Màu nền cho nút submit */
+            border: none; /* Không có viền */
+            border-radius: 5px; /* Bo tròn góc cho nút submit */
+            color: #FFFFFF; /* Màu chữ cho nút submit */
+            font-size: 18px; /* Kích thước chữ cho nút submit */
+            cursor: pointer; /* Con trỏ chuột khi hover */
+        }
+
+            input[type="submit"]:hover {
+                background-color: #A1D8EC; /* Màu nền khi hover */
+            }
+
+        .btn-back {
+            color: black; /* Màu chữ cho nút quay lại */
+            display: flex; /* Sử dụng flexbox cho layout */
+            justify-content: center; /* Căn giữa nội dung */
+            margin-top: 20px; /* Khoảng cách trên cho nút quay lại */
+        }
+
+            .btn-back:hover {
+                font-weight: bold; /* Độ dày chữ khi hover */
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Đổ bóng cho chữ khi hover */
+                transform: scale(1.05); /* Phóng to nút khi hover */
+            }
+
+        .btn i {
+            margin-right: 5px; /* Khoảng cách bên phải cho biểu tượng trong nút */
+        }
+    </style>
+</head>
+
+<h1>Chỉnh sửa Thông Tin Học Viên</h1> <!-- Tiêu đề trang -->
+
+<div class="container">
+    <form asp-action="Edit">
+        <!-- Form gửi đến hành động Edit -->
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Hiển thị lỗi validation -->
+        <input type="hidden" asp-for="IdHocVien" /> <!-- Truyền IdHocVien ẩn -->
+        <!-- Nhóm nhập liệu cho mã học viên -->
+        <div class="form-group">
+            <label asp-for="MaHocVien" class="control-label">Mã Học Viên</label>
+            <input asp-for="MaHocVien" class="form-control" /> <!-- Input cho mã học viên -->
+            <span asp-validation-for="MaHocVien" class="text-danger"></span> <!-- Hiển thị lỗi nếu có -->
+        </div>
+
+        <!-- Nhóm nhập liệu cho người -->
+        <div class="form-group">
+            <label asp-for="IdNguoi" class="control-label">Người</label>
+            <select asp-for="IdNguoi" class="form-control" asp-items="ViewBag.IdNguoi"></select> <!-- Dropdown cho IdNguoi -->
+            <span asp-validation-for="IdNguoi" class="text-danger"></span> <!-- Hiển thị lỗi nếu có -->
+        </div>
+
+        <!-- Nhóm nhập liệu cho email -->
+        <div class="form-group">
+            <label asp-for="Email" class="control-label">Email</label>
+            <input asp-for="Email" class="form-control" /> <!-- Input cho email -->
+            <span asp-validation-for="Email" class="text-danger"></span> <!-- Hiển thị lỗi nếu có -->
+        </div>
+
+        <!-- Nhóm nhập liệu cho số điện thoại -->
+        <div class="form-group">
+            <label asp-for="Sdt" class="control-label">Số Điện Thoại</label>
+            <input asp-for="Sdt" class="form-control" /> <!-- Input cho số điện thoại -->
+            <span asp-validation-for="Sdt" class="text-danger"></span> <!-- Hiển thị lỗi nếu có -->
+        </div>
+
+        <!-- Nhóm nhập liệu cho số sổ bảo hiểm -->
+        <div class="form-group">
+            <label asp-for="SoSoBaoHiem" class="control-label">Số Sổ Bảo Hiểm</label>
+            <input asp-for="SoSoBaoHiem" class="form-control" /> <!-- Input cho số sổ bảo hiểm -->
+            <span asp-validation-for="SoSoBaoHiem" class="text-danger"></span> <!-- Hiển thị lỗi nếu có -->
+        </div>
+
+        <!-- Nhóm nhập liệu cho loại khuyết tật -->
+        <div class="form-group">
+            <label asp-for="IdLoaiKhuyetTat" class="control-label">Loại Khuyết Tật</label>
+            <select asp-for="IdLoaiKhuyetTat" class="form-control" asp-items="ViewBag.IdLoaiKhuyetTat"></select> <!-- Dropdown cho IdLoaiKhuyetTat -->
+            <span asp-validation-for="IdLoaiKhuyetTat" class="text-danger"></span> <!-- Hiển thị lỗi nếu có -->
+        </div>
+
+        <!-- Nhóm nhập liệu cho tỉnh -->
+        <div class="form-group">
+            <label asp-for="IdTinh" class="control-label">Tỉnh</label>
+            <select asp-for="IdTinh" class="form-control" asp-items="ViewBag.IdTinh"></select> <!-- Dropdown cho IdTinh -->
+            <span asp-validation-for="IdTinh" class="text-danger"></span> <!-- Hiển thị lỗi nếu có -->
+        </div>
+
+        <!-- Nhóm nhập liệu cho huyện -->
+        <div class="form-group">
+            <label asp-for="IdHuyen" class="control-label">Huyện</label>
+            <select asp-for="IdHuyen" class="form-control" asp-items="ViewBag.IdHuyen"></select> <!-- Dropdown cho IdHuyen -->
+            <span asp-validation-for="IdHuyen" class="text-danger"></span> <!-- Hiển thị lỗi nếu có -->
+        </div>
+
+        <!-- Nhóm nhập liệu cho xã -->
+        <div class="form-group">
+            <label asp-for="IdXa" class="control-label">Xã</label>
+            <select asp-for="IdXa" class="form-control" asp-items="ViewBag.IdXa"></select> <!-- Dropdown cho IdXa -->
+            <span asp-validation-for="IdXa" class="text-danger"></span> <!-- Hiển thị lỗi nếu có -->
+        </div>
+
+        <!-- Nhóm nhập liệu cho nơi sinh -->
+        <div class="form-group">
+            <label asp-for="NoiSinh" class="control-label">Nơi Sinh</label>
+            <input asp-for="NoiSinh" class="form-control" /> <!-- Input cho nơi sinh -->
+            <span asp-validation-for="NoiSinh" class="text-danger"></span> <!-- Hiển thị lỗi nếu có -->
+        </div>
+
+        <!-- Nhóm nhập liệu cho quê quán -->
+        <div class="form-group">
+            <label asp-for="QueQuan" class="control-label">Quê Quán</label>
+            <input asp-for="QueQuan" class="form-control" /> <!-- Input cho quê quán -->
+            <span asp-validation-for="QueQuan" class="text-danger"></span> <!-- Hiển thị lỗi nếu có -->
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Lưu" class="btn btn-primary" /> <!-- Nút submit để lưu thông tin -->
+        </div>
+    </form>
 </div>
 
-
+<!-- Nút quay lại danh sách -->
+<div>
+    <a asp-action="Index" class="btn btn-back" style="color: #4b9ab4">
+        <i class="fa-solid fa-circle-arrow-left"></i>Quay lại danh sách
+    </a>
+</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); // Gọi các script để kiểm tra validation
+    }
 }

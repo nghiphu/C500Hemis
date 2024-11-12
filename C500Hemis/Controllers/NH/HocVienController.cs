@@ -225,49 +225,55 @@ namespace C500Hemis.Controllers.NH
             {
                 if (id == null) return NotFound();
 
-            var tbHocVien = await _context.TbHocViens
-                .Include(t => t.IdHuyenNavigation)
-                .Include(t => t.IdLoaiKhuyetTatNavigation)
-                .Include(t => t.IdNguoiNavigation)
-                .Include(t => t.IdTinhNavigation)
-                .Include(t => t.IdXaNavigation)
-                .FirstOrDefaultAsync(m => m.IdHocVien == id);
-            if (tbHocVien == null)
+                var tbHocVien = await _context.TbHocViens
+                    .Include(t => t.IdHuyenNavigation)
+                    .Include(t => t.IdLoaiKhuyetTatNavigation)
+                    .Include(t => t.IdNguoiNavigation)
+                    .Include(t => t.IdTinhNavigation)
+                    .Include(t => t.IdXaNavigation)
+                    .FirstOrDefaultAsync(m => m.IdHocVien == id);
+                if (tbHocVien == null)
+                {
+                    Console.WriteLine("Foreign Key Constraint Violation.");
+                    return BadRequest();
+                }
+                return View(tbHocVien);
+            }
+            catch (Exception ex)
             {
-                Console.WriteLine("Foreign Key Constraint Violation.");
                 return BadRequest(ex.Message);
             }
         }
 
         // POST: HocVien/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            try
+            [ValidateAntiForgeryToken]
+            public async Task<IActionResult> DeleteConfirmed(int id)
             {
-                var tbHocVien = await _context.TbHocViens.FindAsync(id);
-                if (tbHocVien != null) _context.TbHocViens.Remove(tbHocVien);
+                try
+                {
+                    var tbHocVien = await _context.TbHocViens.FindAsync(id);
+                    if (tbHocVien != null) _context.TbHocViens.Remove(tbHocVien);
 
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest("Lỗi vi phạm ràng buộc khóa ngoại xảy ra khi bạn cố gắng xóa hoặc cập nhật một bản ghi trong bảng mà các bảng khác đang tham chiếu đến thông qua khóa ngoại ");
+                }
             }
-            catch (Exception ex)
+
+            private bool TbHocVienExists(int id)
             {
-                return BadRequest("Lỗi vi phạm ràng buộc khóa ngoại xảy ra khi bạn cố gắng xóa hoặc cập nhật một bản ghi trong bảng mà các bảng khác đang tham chiếu đến thông qua khóa ngoại ");
+                return _context.TbHocViens.Any(e => e.IdHocVien == id);
             }
-        }
-
-        private bool TbHocVienExists(int id)
-        {
-            return _context.TbHocViens.Any(e => e.IdHocVien == id);
-        }
-        private async Task<bool> existId(string id)
-        {
-            //Kiểm tra đã tồn tại trong TbKyLuatCanBo chua
-            TbHocVien? cr = (await _context.TbHocViens.SingleOrDefaultAsync(e => e.MaHocVien == id));
-            if (cr == null) return false;
-            return true;
+            private async Task<bool> existId(string id)
+            {
+                //Kiểm tra đã tồn tại trong TbKyLuatCanBo chua
+                TbHocVien? cr = (await _context.TbHocViens.SingleOrDefaultAsync(e => e.MaHocVien == id));
+                if (cr == null) return false;
+                return true;
+            }
         }
     }
-}

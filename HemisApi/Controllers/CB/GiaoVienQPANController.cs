@@ -22,36 +22,36 @@ namespace HemisApi.Controllers.CB
 
         // GET: api/CanBo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TbCanBo>>> GetTbCanBos()
+        public async Task<ActionResult<IEnumerable<TbGiaoVienQpan>>> GetTbGiaoVienQpans()
         {
-            return await _context.TbCanBos.ToListAsync();
+            return await _context.TbGiaoVienQpans.ToListAsync();
         }
 
         // GET: api/CanBo/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TbCanBo>> GetTbCanBo(int id)
+        public async Task<ActionResult<TbGiaoVienQpan>> GetTbGiaoVienQpan(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
+            var TbGiaoVienQpan = await _context.TbGiaoVienQpans.FindAsync(id);
 
-            if (tbCanBo == null)
+            if (TbGiaoVienQpan == null)
             {
                 return NotFound();
             }
 
-            return tbCanBo;
+            return TbGiaoVienQpan;
         }
 
         // PUT: api/CanBo/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTbCanBo(int id, TbCanBo tbCanBo)
+        public async Task<IActionResult> PutTbGiaoVienQpan(int id, TbGiaoVienQpan TbGiaoVienQpan)
         {
-            if (id != tbCanBo.IdCanBo)
+            if (id != TbGiaoVienQpan.IdGiaoVienQpan)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tbCanBo).State = EntityState.Modified;
+            _context.Entry(TbGiaoVienQpan).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace HemisApi.Controllers.CB
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TbCanBoExists(id))
+                if (!TbGiaoVienQpanExists(id))
                 {
                     return NotFound();
                 }
@@ -75,16 +75,16 @@ namespace HemisApi.Controllers.CB
         // POST: api/CanBo
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TbCanBo>> PostTbCanBo(TbCanBo tbCanBo)
+        public async Task<ActionResult<TbGiaoVienQpan>> PostTbGiaoVienQpan(TbGiaoVienQpan TbGiaoVienQpan)
         {
-            _context.TbCanBos.Add(tbCanBo);
+            _context.TbGiaoVienQpans.Add(TbGiaoVienQpan);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TbCanBoExists(tbCanBo.IdCanBo))
+                if (TbGiaoVienQpanExists(TbGiaoVienQpan.IdGiaoVienQpan))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace HemisApi.Controllers.CB
                 }
             }
 
-            return CreatedAtAction("GetTbCanBo", new { id = tbCanBo.IdCanBo }, tbCanBo);
+            return CreatedAtAction("GetTbGiaoVienQpan", new { id = TbGiaoVienQpan.IdGiaoVienQpan }, TbGiaoVienQpan);
         }
 
         // DELETE: api/CanBo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTbCanBo(int id)
+        public async Task<IActionResult> DeleteTbGiaoVienQpan(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
-            if (tbCanBo == null)
+            var TbGiaoVienQpan = await _context.TbGiaoVienQpans.FindAsync(id);
+            if (TbGiaoVienQpan == null)
             {
                 return NotFound();
             }
 
-            _context.TbCanBos.Remove(tbCanBo);
+            _context.TbGiaoVienQpans.Remove(TbGiaoVienQpan);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TbCanBoExists(int id)
+        private bool TbGiaoVienQpanExists(int id)
         {
-            return _context.TbCanBos.Any(e => e.IdCanBo == id);
+            return _context.TbGiaoVienQpans.Any(e => e.IdGiaoVienQpan == id);
         }
     }
 }

@@ -22,36 +22,36 @@ namespace HemisApi.Controllers.HTQT
 
         // GET: api/CanBo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TbCanBo>>> GetTbCanBos()
+        public async Task<ActionResult<IEnumerable<TbToChucHopTacQuocTe>>> GetTbToChucHopTacQuocTes()
         {
-            return await _context.TbCanBos.ToListAsync();
+            return await _context.TbToChucHopTacQuocTes.ToListAsync();
         }
 
         // GET: api/CanBo/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TbCanBo>> GetTbCanBo(int id)
+        public async Task<ActionResult<TbToChucHopTacQuocTe>> GetTbToChucHopTacQuocTe(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
+            var TbToChucHopTacQuocTe = await _context.TbToChucHopTacQuocTes.FindAsync(id);
 
-            if (tbCanBo == null)
+            if (TbToChucHopTacQuocTe == null)
             {
                 return NotFound();
             }
 
-            return tbCanBo;
+            return TbToChucHopTacQuocTe;
         }
 
         // PUT: api/CanBo/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTbCanBo(int id, TbCanBo tbCanBo)
+        public async Task<IActionResult> PutTbToChucHopTacQuocTe(int id, TbToChucHopTacQuocTe TbToChucHopTacQuocTe)
         {
-            if (id != tbCanBo.IdCanBo)
+            if (id != TbToChucHopTacQuocTe.IdToChucHopTacQuocTe)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tbCanBo).State = EntityState.Modified;
+            _context.Entry(TbToChucHopTacQuocTe).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace HemisApi.Controllers.HTQT
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TbCanBoExists(id))
+                if (!TbToChucHopTacQuocTeExists(id))
                 {
                     return NotFound();
                 }
@@ -75,16 +75,16 @@ namespace HemisApi.Controllers.HTQT
         // POST: api/CanBo
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TbCanBo>> PostTbCanBo(TbCanBo tbCanBo)
+        public async Task<ActionResult<TbToChucHopTacQuocTe>> PostTbToChucHopTacQuocTe(TbToChucHopTacQuocTe TbToChucHopTacQuocTe)
         {
-            _context.TbCanBos.Add(tbCanBo);
+            _context.TbToChucHopTacQuocTes.Add(TbToChucHopTacQuocTe);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TbCanBoExists(tbCanBo.IdCanBo))
+                if (TbToChucHopTacQuocTeExists(TbToChucHopTacQuocTe.IdToChucHopTacQuocTe))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace HemisApi.Controllers.HTQT
                 }
             }
 
-            return CreatedAtAction("GetTbCanBo", new { id = tbCanBo.IdCanBo }, tbCanBo);
+            return CreatedAtAction("GetTbToChucHopTacQuocTe", new { id = TbToChucHopTacQuocTe.IdToChucHopTacQuocTe }, TbToChucHopTacQuocTe);
         }
 
         // DELETE: api/CanBo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTbCanBo(int id)
+        public async Task<IActionResult> DeleteTbToChucHopTacQuocTe(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
-            if (tbCanBo == null)
+            var TbToChucHopTacQuocTe = await _context.TbToChucHopTacQuocTes.FindAsync(id);
+            if (TbToChucHopTacQuocTe == null)
             {
                 return NotFound();
             }
 
-            _context.TbCanBos.Remove(tbCanBo);
+            _context.TbToChucHopTacQuocTes.Remove(TbToChucHopTacQuocTe);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TbCanBoExists(int id)
+        private bool TbToChucHopTacQuocTeExists(int id)
         {
-            return _context.TbCanBos.Any(e => e.IdCanBo == id);
+            return _context.TbToChucHopTacQuocTes.Any(e => e.IdToChucHopTacQuocTe == id);
         }
     }
 }

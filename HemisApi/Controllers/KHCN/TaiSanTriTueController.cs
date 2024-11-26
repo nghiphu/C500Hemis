@@ -22,36 +22,36 @@ namespace HemisApi.Controllers.CTDT
 
         // GET: api/CanBo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TbCanBo>>> GetTbCanBos()
+        public async Task<ActionResult<IEnumerable<TbTaiSanTriTue>>> GetTbTaiSanTriTues()
         {
-            return await _context.TbCanBos.ToListAsync();
+            return await _context.TbTaiSanTriTues.ToListAsync();
         }
 
         // GET: api/CanBo/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TbCanBo>> GetTbCanBo(int id)
+        public async Task<ActionResult<TbTaiSanTriTue>> GetTbTaiSanTriTue(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
+            var TbTaiSanTriTue = await _context.TbTaiSanTriTues.FindAsync(id);
 
-            if (tbCanBo == null)
+            if (TbTaiSanTriTue == null)
             {
                 return NotFound();
             }
 
-            return tbCanBo;
+            return TbTaiSanTriTue;
         }
 
         // PUT: api/CanBo/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTbCanBo(int id, TbCanBo tbCanBo)
+        public async Task<IActionResult> PutTbTaiSanTriTue(int id, TbTaiSanTriTue TbTaiSanTriTue)
         {
-            if (id != tbCanBo.IdCanBo)
+            if (id != TbTaiSanTriTue.IdTaiSanTriTue)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tbCanBo).State = EntityState.Modified;
+            _context.Entry(TbTaiSanTriTue).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace HemisApi.Controllers.CTDT
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TbCanBoExists(id))
+                if (!TbTaiSanTriTueExists(id))
                 {
                     return NotFound();
                 }
@@ -75,16 +75,16 @@ namespace HemisApi.Controllers.CTDT
         // POST: api/CanBo
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TbCanBo>> PostTbCanBo(TbCanBo tbCanBo)
+        public async Task<ActionResult<TbTaiSanTriTue>> PostTbTaiSanTriTue(TbTaiSanTriTue TbTaiSanTriTue)
         {
-            _context.TbCanBos.Add(tbCanBo);
+            _context.TbTaiSanTriTues.Add(TbTaiSanTriTue);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TbCanBoExists(tbCanBo.IdCanBo))
+                if (TbTaiSanTriTueExists(TbTaiSanTriTue.IdTaiSanTriTue))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace HemisApi.Controllers.CTDT
                 }
             }
 
-            return CreatedAtAction("GetTbCanBo", new { id = tbCanBo.IdCanBo }, tbCanBo);
+            return CreatedAtAction("GetTbTaiSanTriTue", new { id = TbTaiSanTriTue.IdTaiSanTriTue }, TbTaiSanTriTue);
         }
 
         // DELETE: api/CanBo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTbCanBo(int id)
+        public async Task<IActionResult> DeleteTbTaiSanTriTue(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
-            if (tbCanBo == null)
+            var TbTaiSanTriTue = await _context.TbTaiSanTriTues.FindAsync(id);
+            if (TbTaiSanTriTue == null)
             {
                 return NotFound();
             }
 
-            _context.TbCanBos.Remove(tbCanBo);
+            _context.TbTaiSanTriTues.Remove(TbTaiSanTriTue);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TbCanBoExists(int id)
+        private bool TbTaiSanTriTueExists(int id)
         {
-            return _context.TbCanBos.Any(e => e.IdCanBo == id);
+            return _context.TbTaiSanTriTues.Any(e => e.IdTaiSanTriTue == id);
         }
     }
 }

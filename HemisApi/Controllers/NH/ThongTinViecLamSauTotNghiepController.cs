@@ -22,36 +22,36 @@ namespace HemisApi.Controllers.NH
 
         // GET: api/CanBo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TbCanBo>>> GetTbCanBos()
+        public async Task<ActionResult<IEnumerable<TbThongTinViecLamSauTotNghiep>>> GetTbThongTinViecLamSauTotNghieps()
         {
-            return await _context.TbCanBos.ToListAsync();
+            return await _context.TbThongTinViecLamSauTotNghieps.ToListAsync();
         }
 
         // GET: api/CanBo/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TbCanBo>> GetTbCanBo(int id)
+        public async Task<ActionResult<TbThongTinViecLamSauTotNghiep>> GetTbThongTinViecLamSauTotNghiep(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
+            var TbThongTinViecLamSauTotNghiep = await _context.TbThongTinViecLamSauTotNghieps.FindAsync(id);
 
-            if (tbCanBo == null)
+            if (TbThongTinViecLamSauTotNghiep == null)
             {
                 return NotFound();
             }
 
-            return tbCanBo;
+            return TbThongTinViecLamSauTotNghiep;
         }
 
         // PUT: api/CanBo/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTbCanBo(int id, TbCanBo tbCanBo)
+        public async Task<IActionResult> PutTbThongTinViecLamSauTotNghiep(int id, TbThongTinViecLamSauTotNghiep TbThongTinViecLamSauTotNghiep)
         {
-            if (id != tbCanBo.IdCanBo)
+            if (id != TbThongTinViecLamSauTotNghiep.IdThongTinViecLamSauTotNghiep)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tbCanBo).State = EntityState.Modified;
+            _context.Entry(TbThongTinViecLamSauTotNghiep).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace HemisApi.Controllers.NH
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TbCanBoExists(id))
+                if (!TbThongTinViecLamSauTotNghiepExists(id))
                 {
                     return NotFound();
                 }
@@ -75,16 +75,16 @@ namespace HemisApi.Controllers.NH
         // POST: api/CanBo
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TbCanBo>> PostTbCanBo(TbCanBo tbCanBo)
+        public async Task<ActionResult<TbThongTinViecLamSauTotNghiep>> PostTbThongTinViecLamSauTotNghiep(TbThongTinViecLamSauTotNghiep TbThongTinViecLamSauTotNghiep)
         {
-            _context.TbCanBos.Add(tbCanBo);
+            _context.TbThongTinViecLamSauTotNghieps.Add(TbThongTinViecLamSauTotNghiep);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TbCanBoExists(tbCanBo.IdCanBo))
+                if (TbThongTinViecLamSauTotNghiepExists(TbThongTinViecLamSauTotNghiep.IdThongTinViecLamSauTotNghiep))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace HemisApi.Controllers.NH
                 }
             }
 
-            return CreatedAtAction("GetTbCanBo", new { id = tbCanBo.IdCanBo }, tbCanBo);
+            return CreatedAtAction("GetTbThongTinViecLamSauTotNghiep", new { id = TbThongTinViecLamSauTotNghiep.IdThongTinViecLamSauTotNghiep }, TbThongTinViecLamSauTotNghiep);
         }
 
         // DELETE: api/CanBo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTbCanBo(int id)
+        public async Task<IActionResult> DeleteTbThongTinViecLamSauTotNghiep(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
-            if (tbCanBo == null)
+            var TbThongTinViecLamSauTotNghiep = await _context.TbThongTinViecLamSauTotNghieps.FindAsync(id);
+            if (TbThongTinViecLamSauTotNghiep == null)
             {
                 return NotFound();
             }
 
-            _context.TbCanBos.Remove(tbCanBo);
+            _context.TbThongTinViecLamSauTotNghieps.Remove(TbThongTinViecLamSauTotNghiep);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TbCanBoExists(int id)
+        private bool TbThongTinViecLamSauTotNghiepExists(int id)
         {
-            return _context.TbCanBos.Any(e => e.IdCanBo == id);
+            return _context.TbThongTinViecLamSauTotNghieps.Any(e => e.IdThongTinViecLamSauTotNghiep == id);
         }
     }
 }

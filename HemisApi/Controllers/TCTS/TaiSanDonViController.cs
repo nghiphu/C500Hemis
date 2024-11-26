@@ -22,36 +22,36 @@ namespace HemisApi.Controllers.TCTS
 
         // GET: api/CanBo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TbCanBo>>> GetTbCanBos()
+        public async Task<ActionResult<IEnumerable<TbTaiSanDonVi>>> GetTbTaiSanDonVis()
         {
-            return await _context.TbCanBos.ToListAsync();
+            return await _context.TbTaiSanDonVis.ToListAsync();
         }
 
         // GET: api/CanBo/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TbCanBo>> GetTbCanBo(int id)
+        public async Task<ActionResult<TbTaiSanDonVi>> GetTbTaiSanDonVi(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
+            var TbTaiSanDonVi = await _context.TbTaiSanDonVis.FindAsync(id);
 
-            if (tbCanBo == null)
+            if (TbTaiSanDonVi == null)
             {
                 return NotFound();
             }
 
-            return tbCanBo;
+            return TbTaiSanDonVi;
         }
 
         // PUT: api/CanBo/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTbCanBo(int id, TbCanBo tbCanBo)
+        public async Task<IActionResult> PutTbTaiSanDonVi(int id, TbTaiSanDonVi TbTaiSanDonVi)
         {
-            if (id != tbCanBo.IdCanBo)
+            if (id != TbTaiSanDonVi.IdTaiSanDonVi)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tbCanBo).State = EntityState.Modified;
+            _context.Entry(TbTaiSanDonVi).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace HemisApi.Controllers.TCTS
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TbCanBoExists(id))
+                if (!TbTaiSanDonViExists(id))
                 {
                     return NotFound();
                 }
@@ -75,16 +75,16 @@ namespace HemisApi.Controllers.TCTS
         // POST: api/CanBo
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TbCanBo>> PostTbCanBo(TbCanBo tbCanBo)
+        public async Task<ActionResult<TbTaiSanDonVi>> PostTbTaiSanDonVi(TbTaiSanDonVi TbTaiSanDonVi)
         {
-            _context.TbCanBos.Add(tbCanBo);
+            _context.TbTaiSanDonVis.Add(TbTaiSanDonVi);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TbCanBoExists(tbCanBo.IdCanBo))
+                if (TbTaiSanDonViExists(TbTaiSanDonVi.IdTaiSanDonVi))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace HemisApi.Controllers.TCTS
                 }
             }
 
-            return CreatedAtAction("GetTbCanBo", new { id = tbCanBo.IdCanBo }, tbCanBo);
+            return CreatedAtAction("GetTbTaiSanDonVi", new { id = TbTaiSanDonVi.IdTaiSanDonVi }, TbTaiSanDonVi);
         }
 
         // DELETE: api/CanBo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTbCanBo(int id)
+        public async Task<IActionResult> DeleteTbTaiSanDonVi(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
-            if (tbCanBo == null)
+            var TbTaiSanDonVi = await _context.TbTaiSanDonVis.FindAsync(id);
+            if (TbTaiSanDonVi == null)
             {
                 return NotFound();
             }
 
-            _context.TbCanBos.Remove(tbCanBo);
+            _context.TbTaiSanDonVis.Remove(TbTaiSanDonVi);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TbCanBoExists(int id)
+        private bool TbTaiSanDonViExists(int id)
         {
-            return _context.TbCanBos.Any(e => e.IdCanBo == id);
+            return _context.TbTaiSanDonVis.Any(e => e.IdTaiSanDonVi == id);
         }
     }
 }

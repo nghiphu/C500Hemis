@@ -11,11 +11,11 @@ namespace HemisApi.Controllers.CB
 {
     [Route("api/cb/[controller]")]
     [ApiController]
-    public class VanBanTuChuController : ControllerBase
+    public class CanBoController : ControllerBase
     {
         private readonly HemisContext _context;
 
-        public VanBanTuChuController(HemisContext context)
+        public CanBoController(HemisContext context)
         {
             _context = context;
         }

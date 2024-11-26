@@ -22,36 +22,36 @@ namespace HemisApi.Controllers.CSVC
 
         // GET: api/CanBo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TbCanBo>>> GetTbCanBos()
+        public async Task<ActionResult<IEnumerable<TbCongTrinhCoSoVatChat>>> GetTbCongTrinhCoSoVatChats()
         {
-            return await _context.TbCanBos.ToListAsync();
+            return await _context.TbCongTrinhCoSoVatChats.ToListAsync();
         }
 
         // GET: api/CanBo/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TbCanBo>> GetTbCanBo(int id)
+        public async Task<ActionResult<TbCongTrinhCoSoVatChat>> GetTbCongTrinhCoSoVatChat(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
+            var TbCongTrinhCoSoVatChat = await _context.TbCongTrinhCoSoVatChats.FindAsync(id);
 
-            if (tbCanBo == null)
+            if (TbCongTrinhCoSoVatChat == null)
             {
                 return NotFound();
             }
 
-            return tbCanBo;
+            return TbCongTrinhCoSoVatChat;
         }
 
         // PUT: api/CanBo/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTbCanBo(int id, TbCanBo tbCanBo)
+        public async Task<IActionResult> PutTbCongTrinhCoSoVatChat(int id, TbCongTrinhCoSoVatChat TbCongTrinhCoSoVatChat)
         {
-            if (id != tbCanBo.IdCanBo)
+            if (id != TbCongTrinhCoSoVatChat.IdCongTrinhCoSoVatChat)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tbCanBo).State = EntityState.Modified;
+            _context.Entry(TbCongTrinhCoSoVatChat).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace HemisApi.Controllers.CSVC
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TbCanBoExists(id))
+                if (!TbCongTrinhCoSoVatChatExists(id))
                 {
                     return NotFound();
                 }
@@ -75,16 +75,16 @@ namespace HemisApi.Controllers.CSVC
         // POST: api/CanBo
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TbCanBo>> PostTbCanBo(TbCanBo tbCanBo)
+        public async Task<ActionResult<TbCongTrinhCoSoVatChat>> PostTbCongTrinhCoSoVatChat(TbCongTrinhCoSoVatChat TbCongTrinhCoSoVatChat)
         {
-            _context.TbCanBos.Add(tbCanBo);
+            _context.TbCongTrinhCoSoVatChats.Add(TbCongTrinhCoSoVatChat);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TbCanBoExists(tbCanBo.IdCanBo))
+                if (TbCongTrinhCoSoVatChatExists(TbCongTrinhCoSoVatChat.IdCongTrinhCoSoVatChat))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace HemisApi.Controllers.CSVC
                 }
             }
 
-            return CreatedAtAction("GetTbCanBo", new { id = tbCanBo.IdCanBo }, tbCanBo);
+            return CreatedAtAction("GetTbCongTrinhCoSoVatChat", new { id = TbCongTrinhCoSoVatChat.IdCongTrinhCoSoVatChat }, TbCongTrinhCoSoVatChat);
         }
 
         // DELETE: api/CanBo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTbCanBo(int id)
+        public async Task<IActionResult> DeleteTbCongTrinhCoSoVatChat(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
-            if (tbCanBo == null)
+            var TbCongTrinhCoSoVatChat = await _context.TbCongTrinhCoSoVatChats.FindAsync(id);
+            if (TbCongTrinhCoSoVatChat == null)
             {
                 return NotFound();
             }
 
-            _context.TbCanBos.Remove(tbCanBo);
+            _context.TbCongTrinhCoSoVatChats.Remove(TbCongTrinhCoSoVatChat);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TbCanBoExists(int id)
+        private bool TbCongTrinhCoSoVatChatExists(int id)
         {
-            return _context.TbCanBos.Any(e => e.IdCanBo == id);
+            return _context.TbCongTrinhCoSoVatChats.Any(e => e.IdCongTrinhCoSoVatChat == id);
         }
     }
 }

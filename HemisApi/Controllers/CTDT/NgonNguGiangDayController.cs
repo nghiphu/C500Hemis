@@ -22,36 +22,36 @@ namespace HemisApi.Controllers.CTDT
 
         // GET: api/CanBo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TbCanBo>>> GetTbCanBos()
+        public async Task<ActionResult<IEnumerable<TbNgonNguGiangDay>>> GetTbNgonNguGiangDays()
         {
-            return await _context.TbCanBos.ToListAsync();
+            return await _context.TbNgonNguGiangDays.ToListAsync();
         }
 
         // GET: api/CanBo/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TbCanBo>> GetTbCanBo(int id)
+        public async Task<ActionResult<TbNgonNguGiangDay>> GetTbNgonNguGiangDay(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
+            var TbNgonNguGiangDay = await _context.TbNgonNguGiangDays.FindAsync(id);
 
-            if (tbCanBo == null)
+            if (TbNgonNguGiangDay == null)
             {
                 return NotFound();
             }
 
-            return tbCanBo;
+            return TbNgonNguGiangDay;
         }
 
         // PUT: api/CanBo/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTbCanBo(int id, TbCanBo tbCanBo)
+        public async Task<IActionResult> PutTbNgonNguGiangDay(int id, TbNgonNguGiangDay TbNgonNguGiangDay)
         {
-            if (id != tbCanBo.IdCanBo)
+            if (id != TbNgonNguGiangDay.IdNgonNguGiangDay)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tbCanBo).State = EntityState.Modified;
+            _context.Entry(TbNgonNguGiangDay).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace HemisApi.Controllers.CTDT
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TbCanBoExists(id))
+                if (!TbNgonNguGiangDayExists(id))
                 {
                     return NotFound();
                 }
@@ -75,16 +75,16 @@ namespace HemisApi.Controllers.CTDT
         // POST: api/CanBo
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TbCanBo>> PostTbCanBo(TbCanBo tbCanBo)
+        public async Task<ActionResult<TbNgonNguGiangDay>> PostTbNgonNguGiangDay(TbNgonNguGiangDay TbNgonNguGiangDay)
         {
-            _context.TbCanBos.Add(tbCanBo);
+            _context.TbNgonNguGiangDays.Add(TbNgonNguGiangDay);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TbCanBoExists(tbCanBo.IdCanBo))
+                if (TbNgonNguGiangDayExists(TbNgonNguGiangDay.IdNgonNguGiangDay))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace HemisApi.Controllers.CTDT
                 }
             }
 
-            return CreatedAtAction("GetTbCanBo", new { id = tbCanBo.IdCanBo }, tbCanBo);
+            return CreatedAtAction("GetTbNgonNguGiangDay", new { id = TbNgonNguGiangDay.IdNgonNguGiangDay }, TbNgonNguGiangDay);
         }
 
         // DELETE: api/CanBo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTbCanBo(int id)
+        public async Task<IActionResult> DeleteTbNgonNguGiangDay(int id)
         {
-            var tbCanBo = await _context.TbCanBos.FindAsync(id);
-            if (tbCanBo == null)
+            var TbNgonNguGiangDay = await _context.TbNgonNguGiangDays.FindAsync(id);
+            if (TbNgonNguGiangDay == null)
             {
                 return NotFound();
             }
 
-            _context.TbCanBos.Remove(tbCanBo);
+            _context.TbNgonNguGiangDays.Remove(TbNgonNguGiangDay);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TbCanBoExists(int id)
+        private bool TbNgonNguGiangDayExists(int id)
         {
-            return _context.TbCanBos.Any(e => e.IdCanBo == id);
+            return _context.TbNgonNguGiangDays.Any(e => e.IdNgonNguGiangDay == id);
         }
     }
 }

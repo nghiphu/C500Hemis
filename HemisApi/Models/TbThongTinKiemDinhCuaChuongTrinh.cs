@@ -19,7 +19,7 @@ public partial class TbThongTinKiemDinhCuaChuongTrinh
 
     public DateOnly? ThoiHanKiemDinh { get; set; }
 
-    public virtual TbChuongTrinhDaoTao IdChuongTrinhDaoTaoNavigation { get; set; } = null!;
+    public virtual TbChuongTrinhDaoTao? IdChuongTrinhDaoTaoNavigation { get; set; } = null!;
 
     public virtual DmKetQuaKiemDinh? IdKetQuaKiemDinhNavigation { get; set; }
 

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace C500Hemis;
+namespace HemisApi.Models;
 
-public partial class HemisContext : DbContext
+public partial class DbHemisC500Context : DbContext
 {
-    public HemisContext()
+    public DbHemisC500Context()
     {
     }
 
-    public HemisContext(DbContextOptions<HemisContext> options)
+    public DbHemisC500Context(DbContextOptions<DbHemisC500Context> options)
         : base(options)
     {
     }
@@ -169,7 +169,7 @@ public partial class HemisContext : DbContext
 
     public virtual DbSet<DmLoaiTaiSanTriTue> DmLoaiTaiSanTriTues { get; set; }
 
-    public virtual DbSet<DmLoaiThamGia> DmLoaiThamGias { get; set; }
+    public virtual DbSet<DmLoaiThamGium> DmLoaiThamGia { get; set; }
 
     public virtual DbSet<DmLoaiToChuc> DmLoaiToChucs { get; set; }
 
@@ -285,7 +285,7 @@ public partial class HemisContext : DbContext
 
     public virtual DbSet<DmTuyChon> DmTuyChons { get; set; }
 
-    public virtual DbSet<DmVaiTroThamGia> DmVaiTroThamGias { get; set; }
+    public virtual DbSet<DmVaiTroThamGium> DmVaiTroThamGia { get; set; }
 
     public virtual DbSet<DmViTriViecLam> DmViTriViecLams { get; set; }
 
@@ -479,6 +479,8 @@ public partial class HemisContext : DbContext
 
     public virtual DbSet<TbTrinhDoTiengDanToc> TbTrinhDoTiengDanTocs { get; set; }
 
+    public virtual DbSet<TbUser> TbUsers { get; set; }
+
     public virtual DbSet<TbVanBanTuChu> TbVanBanTuChus { get; set; }
 
     public virtual DbSet<VBaiBaoKhdaCongBo> VBaiBaoKhdaCongBos { get; set; }
@@ -517,7 +519,7 @@ public partial class HemisContext : DbContext
 
     public virtual DbSet<VDoanhNghiepKhcn> VDoanhNghiepKhcns { get; set; }
 
-    public virtual DbSet<VDoiTuongThamGia> VDoiTuongThamGia { get; set; }
+    public virtual DbSet<VDoiTuongThamGium> VDoiTuongThamGia { get; set; }
 
     public virtual DbSet<VDonViLienKetDaoTaoGiaoDuc> VDonViLienKetDaoTaoGiaoDucs { get; set; }
 
@@ -625,8 +627,7 @@ public partial class HemisContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=14.0.22.12;Database=dbHemisC500;Encrypt=false;User Id=c500;Password=@Abc1234");
-        // => optionsBuilder.UseSqlServer("Server=tcp:c500sv.database.windows.net,1433;Encrypt=false;Database=dbHemisC500;User ID=c500;Password=@Abc1234");
+        => optionsBuilder.UseSqlServer("Server=10.0.28.54;Database=dbHemisC500;User Id=sa;Password=@Abc123456;Encrypt=false;Integrated Security=False;\n");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -1433,7 +1434,7 @@ public partial class HemisContext : DbContext
             entity.Property(e => e.LoaiTaiSanTriTue).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<DmLoaiThamGia>(entity =>
+        modelBuilder.Entity<DmLoaiThamGium>(entity =>
         {
             entity.HasKey(e => e.IdLoaiThamGia);
 
@@ -2031,7 +2032,7 @@ public partial class HemisContext : DbContext
             entity.Property(e => e.TuyChon).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<DmVaiTroThamGia>(entity =>
+        modelBuilder.Entity<DmVaiTroThamGium>(entity =>
         {
             entity.HasKey(e => e.IdVaiTroThamGia);
 
@@ -4370,6 +4371,13 @@ public partial class HemisContext : DbContext
                 .HasConstraintName("FK_tbTrinhDoTiengDanToc_dmTiengDanToc");
         });
 
+        modelBuilder.Entity<TbUser>(entity =>
+        {
+            entity.HasKey(e => e.IdNguoi);
+
+            entity.ToTable("TbUser", "PQuyen");
+        });
+
         modelBuilder.Entity<TbVanBanTuChu>(entity =>
         {
             entity.HasKey(e => e.IdVanBanTuChu);
@@ -4713,7 +4721,7 @@ public partial class HemisContext : DbContext
             entity.Property(e => e.TyLeGopVonCuaCsgddh).HasColumnName("TyLeGopVonCuaCSGDDH");
         });
 
-        modelBuilder.Entity<VDoiTuongThamGia>(entity =>
+        modelBuilder.Entity<VDoiTuongThamGium>(entity =>
         {
             entity
                 .HasNoKey()
@@ -4858,7 +4866,7 @@ public partial class HemisContext : DbContext
 
             entity.Property(e => e.HoatDongTaiChinh).HasMaxLength(200);
             entity.Property(e => e.NamTaiChinh).HasColumnType("text");
-            entity.Property(e => e.NoiDung).HasColumnType("text");
+            entity.Property(e => e.NoiDung).HasColumnType("ntext");
         });
 
         modelBuilder.Entity<VHocVien>(entity =>
@@ -4963,7 +4971,7 @@ public partial class HemisContext : DbContext
             entity.Property(e => e.CapQuyetDinh).HasMaxLength(200);
             entity.Property(e => e.Ho).HasMaxLength(50);
             entity.Property(e => e.LoaiKyLuat).HasMaxLength(200);
-            entity.Property(e => e.LyDo).HasColumnType("text");
+            entity.Property(e => e.LyDo).HasColumnType("ntext");
             entity.Property(e => e.NamBiKyLuat).HasColumnType("text");
             entity.Property(e => e.SoCccd)
                 .HasMaxLength(50)
@@ -5331,7 +5339,7 @@ public partial class HemisContext : DbContext
             entity.Property(e => e.LoaiTotNghiep).HasMaxLength(50);
             entity.Property(e => e.MaCanBo).HasMaxLength(50);
             entity.Property(e => e.MaHocVien).HasMaxLength(50);
-            entity.Property(e => e.QuyChuanNguoiHuongDan).HasColumnType("text");
+            entity.Property(e => e.QuyChuanNguoiHuongDan).HasColumnType("ntext");
             entity.Property(e => e.SinhVienNam).HasMaxLength(50);
             entity.Property(e => e.SoCccd)
                 .HasMaxLength(50)
@@ -5341,7 +5349,7 @@ public partial class HemisContext : DbContext
             entity.Property(e => e.SoQuyetDinhThanhLapHoiDongBaoVeCapTruong).HasMaxLength(50);
             entity.Property(e => e.SoQuyetDinhThoiHoc).HasMaxLength(50);
             entity.Property(e => e.Ten).HasMaxLength(50);
-            entity.Property(e => e.TenLuanVan).HasColumnType("text");
+            entity.Property(e => e.TenLuanVan).HasColumnType("ntext");
             entity.Property(e => e.TrangThaiHoc).HasMaxLength(50);
         });
 

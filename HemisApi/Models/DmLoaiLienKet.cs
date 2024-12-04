@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace C500Hemis;
+namespace HemisApi.Models;
 
 public partial class DmLoaiLienKet
 {
@@ -9,6 +9,5 @@ public partial class DmLoaiLienKet
 
     public string? LoaiLienKet { get; set; }
 
-    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<TbDonViLienKetDaoTaoGiaoDuc> TbDonViLienKetDaoTaoGiaoDucs { get; set; } = new List<TbDonViLienKetDaoTaoGiaoDuc>();
 }

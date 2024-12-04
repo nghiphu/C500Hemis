@@ -1,4 +1,5 @@
-using C500Hemis;
+using HemisApi;
+using HemisApi.Models;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
@@ -12,13 +13,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// C?u hình DbContext cho SQL Server
-builder.Services.AddDbContext<HemisContext>(options =>
+// C?u hï¿½nh DbContext cho SQL Server
+builder.Services.AddDbContext<DbHemisC500Context>(options =>
     options.UseSqlServer("Server=10.0.28.54;Database=dbHemisC500;Trusted_Connection=True;Encrypt=false;User Id=c500;Password=@Abc1234")
     //options.UseSqlServer("Server=tcp:c500sv.database.windows.net,1433;Database=dbHemisC500;User Id=c500;Password=@Abc1234")
 );
 
-// C?u hình localization ?? h? tr? ti?ng Vi?t
+// C?u hï¿½nh localization ?? h? tr? ti?ng Vi?t
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var supportedCultures = new[] { new CultureInfo("vi-VN") };
@@ -27,12 +28,12 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedUICultures = supportedCultures;
 });
 
-// Thêm các d?ch v? vào container
+// Thï¿½m cï¿½c d?ch v? vï¿½o container
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// C?u hình pipeline HTTP
+// C?u hï¿½nh pipeline HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

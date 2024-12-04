@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace C500Hemis;
+namespace HemisApi.Models;
 
-public partial class DmLoaiThamGia
+public partial class DmLoaiThamGium
 {
     public int IdLoaiThamGia { get; set; }
 
     public string? LoaiThamGia { get; set; }
 
-    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<TbDoiTuongThamGium> TbDoiTuongThamGia { get; set; } = new List<TbDoiTuongThamGium>();
 }

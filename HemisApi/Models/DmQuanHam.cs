@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace C500Hemis;
+namespace HemisApi.Models;
 
 public partial class DmQuanHam
 {
@@ -9,6 +9,5 @@ public partial class DmQuanHam
 
     public string? QuanHam { get; set; }
 
-    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<TbGiaoVienQpan> TbGiaoVienQpans { get; set; } = new List<TbGiaoVienQpan>();
 }

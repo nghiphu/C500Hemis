@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using C500Hemis;
+using HemisApi.Models;
 
 namespace HemisApi.Controllers.Dm
 {
@@ -13,9 +13,9 @@ namespace HemisApi.Controllers.Dm
     [ApiController]
     public class QuanHamController : ControllerBase
     {
-        private readonly HemisContext _context;
+        private readonly DbHemisC500Context _context;
 
-        public QuanHamController(HemisContext context)
+        public QuanHamController(DbHemisC500Context context)
         {
             _context = context;
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace C500Hemis;
+namespace HemisApi.Models;
 
 public partial class DmLoaiSachTapChi
 {
@@ -9,6 +9,5 @@ public partial class DmLoaiSachTapChi
 
     public string? LoaiSachTapChi { get; set; }
 
-    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<TbSachDaXuatBan> TbSachDaXuatBans { get; set; } = new List<TbSachDaXuatBan>();
 }

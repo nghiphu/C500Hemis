@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using C500Hemis;
+using HemisApi.Models;
 
 namespace HemisApi.Controllers.Dm
 {
@@ -13,25 +13,25 @@ namespace HemisApi.Controllers.Dm
     [ApiController]
     public class VaiTroThamGiaController : ControllerBase
     {
-        private readonly HemisContext _context;
+        private readonly DbHemisC500Context _context;
 
-        public VaiTroThamGiaController(HemisContext context)
+        public VaiTroThamGiaController(DbHemisC500Context context)
         {
             _context = context;
         }
 
         // GET: api/DmVaiTroThamGia
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DmVaiTroThamGia>>> GetDmVaiTroThamGias()
+        public async Task<ActionResult<IEnumerable<DmVaiTroThamGium>>> GetDmVaiTroThamGias()
         {
-            return await _context.DmVaiTroThamGias.ToListAsync();
+            return await _context.DmVaiTroThamGia.ToListAsync();
         }
 
         // GET: api/DmVaiTroThamGia/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DmVaiTroThamGia>> GetDmVaiTroThamGia(int id)
+        public async Task<ActionResult<DmVaiTroThamGium>> GetDmVaiTroThamGia(int id)
         {
-            var dmVaiTroThamGia = await _context.DmVaiTroThamGias.FindAsync(id);
+            var dmVaiTroThamGia = await _context.DmVaiTroThamGia.FindAsync(id);
 
             if (dmVaiTroThamGia == null)
             {
@@ -43,7 +43,7 @@ namespace HemisApi.Controllers.Dm
 
         private bool DmVaiTroThamGiaExists(int id)
         {
-            return _context.DmVaiTroThamGias.Any(e => e.IdVaiTroThamGia == id);
+            return _context.DmVaiTroThamGia.Any(e => e.IdVaiTroThamGia == id);
         }
     }
 }

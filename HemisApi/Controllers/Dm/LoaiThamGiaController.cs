@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using C500Hemis;
+using HemisApi.Models;
 
 namespace HemisApi.Controllers.Dm
 {
@@ -13,37 +13,37 @@ namespace HemisApi.Controllers.Dm
     [ApiController]
     public class LoaiThamGiaController : ControllerBase
     {
-        private readonly HemisContext _context;
+        private readonly DbHemisC500Context _context;
 
-        public LoaiThamGiaController(HemisContext context)
+        public LoaiThamGiaController(DbHemisC500Context context)
         {
             _context = context;
         }
 
-        // GET: api/DmLoaiThamGia
+        // GET: api/DmLoaiThamGium
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DmLoaiThamGia>>> GetDmLoaiThamGias()
+        public async Task<ActionResult<IEnumerable<DmLoaiThamGium>>> GetDmLoaiThamGiums()
         {
-            return await _context.DmLoaiThamGias.ToListAsync();
+            return await _context.DmLoaiThamGia.ToListAsync();
         }
 
-        // GET: api/DmLoaiThamGia/5
+        // GET: api/DmLoaiThamGium/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DmLoaiThamGia>> GetDmLoaiThamGia(int id)
+        public async Task<ActionResult<DmLoaiThamGium>> GetDmLoaiThamGium(int id)
         {
-            var dmLoaiThamGia = await _context.DmLoaiThamGias.FindAsync(id);
+            var DmLoaiThamGium = await _context.DmLoaiThamGia.FindAsync(id);
 
-            if (dmLoaiThamGia == null)
+            if (DmLoaiThamGium == null)
             {
                 return NotFound();
             }
 
-            return dmLoaiThamGia;
+            return DmLoaiThamGium;
         }
 
-        private bool DmLoaiThamGiaExists(int id)
+        private bool DmLoaiThamGiumExists(int id)
         {
-            return _context.DmLoaiThamGias.Any(e => e.IdLoaiThamGia == id);
+            return _context.DmLoaiThamGia.Any(e => e.IdLoaiThamGia == id);
         }
     }
 }

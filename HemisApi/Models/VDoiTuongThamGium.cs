@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace C500Hemis;
+namespace HemisApi.Models;
 
-public partial class VDoiTuongThamGia
+public partial class VDoiTuongThamGium
 {
     public string? LoaiThamGia { get; set; }
 

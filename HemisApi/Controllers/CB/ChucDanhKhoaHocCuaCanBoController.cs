@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using C500Hemis;
-
+using HemisApi.Models;
+using HemisApi.Models;
 namespace HemisApi.Controllers.CB
 {
     [Route("api/cb/[controller]")]
     [ApiController]
     public class ChucDanhKhoaHocCuaCanBoController : ControllerBase
     {
-        private readonly HemisContext _context;
+        private readonly DbHemisC500Context _context;
 
-        public ChucDanhKhoaHocCuaCanBoController(HemisContext context)
+        public ChucDanhKhoaHocCuaCanBoController(DbHemisC500Context context)
         {
             _context = context;
         }

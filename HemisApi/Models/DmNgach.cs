@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace C500Hemis;
+namespace HemisApi.Models;
 
 public partial class DmNgach
 {
@@ -9,6 +9,5 @@ public partial class DmNgach
 
     public string? Ngach { get; set; }
 
-    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<TbCanBo> TbCanBos { get; set; } = new List<TbCanBo>();
 }

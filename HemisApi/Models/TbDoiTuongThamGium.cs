@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace C500Hemis;
+namespace HemisApi.Models;
 
 public partial class TbDoiTuongThamGium
 {
@@ -17,11 +17,11 @@ public partial class TbDoiTuongThamGium
 
     public int? IdPhanLoai { get; set; }
 
-    public virtual DmLoaiThamGia? IdLoaiThamGiaNavigation { get; set; }
+    public virtual DmLoaiThamGium? IdLoaiThamGiaNavigation { get; set; }
 
     public virtual TbNguoi? IdNguoiNavigation { get; set; }
 
     public virtual DmPhanLoaiDoiNguNguoiHoc? IdPhanLoaiNavigation { get; set; }
 
-    public virtual DmVaiTroThamGia? IdVaiTroNavigation { get; set; }
+    public virtual DmVaiTroThamGium? IdVaiTroNavigation { get; set; }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using C500Hemis;
+using HemisApi.Models;
 
 namespace HemisApi.Controllers.NH
 {
@@ -13,9 +13,9 @@ namespace HemisApi.Controllers.NH
     [ApiController]
     public class vThongTinHocBongController : ControllerBase
     {
-        private readonly HemisContext _context;
+        private readonly DbHemisC500Context _context;
 
-        public vThongTinHocBongController(HemisContext context)
+        public vThongTinHocBongController(DbHemisC500Context context)
         {
             _context = context;
         }

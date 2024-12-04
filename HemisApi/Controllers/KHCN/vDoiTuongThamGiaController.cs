@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using C500Hemis;
+using HemisApi.Models;
 
 namespace HemisApi.Controllers.KHCN
 {
@@ -13,23 +13,23 @@ namespace HemisApi.Controllers.KHCN
     [ApiController]
     public class vDoiTuongThamGiaController : ControllerBase
     {
-        private readonly HemisContext _context;
+        private readonly DbHemisC500Context _context;
 
-        public vDoiTuongThamGiaController(HemisContext context)
+        public vDoiTuongThamGiaController(DbHemisC500Context context)
         {
             _context = context;
         }
 
         // GET: api/VDoiTuongThamGia
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<VDoiTuongThamGia>>> GetVDoiTuongThamGias()
+        public async Task<ActionResult<IEnumerable<VDoiTuongThamGium>>> GetVDoiTuongThamGias()
         {
             return await _context.VDoiTuongThamGia.ToListAsync();
         }
 
         // GET: api/VDoiTuongThamGia/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<VDoiTuongThamGia>> GetVDoiTuongThamGia(int id)
+        public async Task<ActionResult<VDoiTuongThamGium>> GetVDoiTuongThamGia(int id)
         {
             var VDoiTuongThamGia = await _context.VDoiTuongThamGia.FindAsync(id);
 

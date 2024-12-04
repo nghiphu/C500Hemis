@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using C500Hemis;
-
+using HemisApi.Models;
+using HemisApi.Models;
 namespace HemisApi.Controllers.CB
 {
     [Route("api/cb/[controller]")]
     [ApiController]
     public class DienBienLuongController : ControllerBase
     {
-        private readonly HemisContext _context;
+        private readonly DbHemisC500Context _context;
 
-        public DienBienLuongController(HemisContext context)
+        public DienBienLuongController(DbHemisC500Context context)
         {
             _context = context;
         }

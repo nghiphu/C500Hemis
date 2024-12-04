@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace C500Hemis;
+namespace HemisApi.Models;
 
 public partial class DmTrangThaiCoSoGd
 {
@@ -9,6 +9,5 @@ public partial class DmTrangThaiCoSoGd
 
     public string? TrangThaiCoSoGd { get; set; }
 
-    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<TbCoCauToChuc> TbCoCauToChucs { get; set; } = new List<TbCoCauToChuc>();
 }

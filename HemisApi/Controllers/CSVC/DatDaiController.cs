@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using C500Hemis;
+using HemisApi.Models;
 
 namespace HemisApi.Controllers.CSVC
 {
@@ -13,9 +13,9 @@ namespace HemisApi.Controllers.CSVC
     [ApiController]
     public class DatDaiController : ControllerBase
     {
-        private readonly HemisContext _context;
+        private readonly DbHemisC500Context _context;
 
-        public DatDaiController(HemisContext context)
+        public DatDaiController(DbHemisC500Context context)
         {
             _context = context;
         }

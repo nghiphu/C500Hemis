@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using C500Hemis;
+using HemisApi.Models;
 
 namespace HemisApi.Controllers.CB
 {
@@ -13,9 +13,9 @@ namespace HemisApi.Controllers.CB
     [ApiController]
     public class NguoiController : ControllerBase
     {
-        private readonly HemisContext _context;
+        private readonly DbHemisC500Context _context;
 
-        public NguoiController(HemisContext context)
+        public NguoiController(DbHemisC500Context context)
         {
             _context = context;
         }

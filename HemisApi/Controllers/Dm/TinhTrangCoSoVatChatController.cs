@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using C500Hemis;
+using HemisApi.Models;
 
 namespace HemisApi.Controllers.Dm
 {
@@ -13,9 +13,9 @@ namespace HemisApi.Controllers.Dm
     [ApiController]
     public class TinhTrangCoSoVatChatController : ControllerBase
     {
-        private readonly HemisContext _context;
+        private readonly DbHemisC500Context _context;
 
-        public TinhTrangCoSoVatChatController(HemisContext context)
+        public TinhTrangCoSoVatChatController(DbHemisC500Context context)
         {
             _context = context;
         }

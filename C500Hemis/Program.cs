@@ -18,6 +18,16 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedUICultures = supportedCultures;
 });
 
+// Thêm dịch vụ session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    // Cấu hình session nếu cần
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 // Thêm các dịch vụ vào container
 builder.Services.AddControllersWithViews();
 
@@ -33,6 +43,9 @@ app.UseStaticFiles();
 // Kích hoạt localization
 app.UseRequestLocalization();
 
+// Thêm Session middleware trước routing
+app.UseSession();
+
 app.UseRouting();
 
 app.UseAuthorization();
@@ -40,7 +53,7 @@ app.UseAuthorization();
 // Thiết lập route mặc định
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
+    pattern: "{controller=Account}/{action=Login}"
 );
 
 app.Run();

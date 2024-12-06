@@ -1,15 +1,18 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using C500Hemis.Models;
-using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace C500Hemis.Controllers
 {
+    [AllowAnonymous] // Cho phép truy cập mà không cần xác thực
     public class AccountController : Controller
     {
-        // Đổi sang HTTP để test
         private readonly string _apiBaseUrl = "http://localhost:5224/api/user";
 
         [HttpGet]
@@ -29,7 +32,6 @@ namespace C500Hemis.Controllers
             var jsonData = JsonSerializer.Serialize(model);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            // Vì dùng HTTP nên không cần handler đặc biệt
             using (var client = new HttpClient())
             {
                 var response = await client.PostAsync($"{_apiBaseUrl}/register", content);
@@ -40,7 +42,8 @@ namespace C500Hemis.Controllers
                 }
                 else
                 {
-                    ViewBag.Error = "Đăng ký không thành công. Kiểm tra lại thông tin.";
+                    var responseBody = await response.Content.ReadAsStringAsync();
+                    ViewBag.Error = JsonDocument.Parse(responseBody).RootElement.GetProperty("message").GetString();
                     return View(model);
                 }
             }
@@ -76,8 +79,30 @@ namespace C500Hemis.Controllers
 
                     if (success == 1)
                     {
-                        int idUser = root.TryGetProperty("idUser", out var idUserProp) ? idUserProp.GetInt32() : 0;
-                        HttpContext.Session.Set("UserId", System.BitConverter.GetBytes(idUser));
+                        int idUser = root.GetProperty("idUser").GetInt32();
+
+                        // Tạo các Claim
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.NameIdentifier, idUser.ToString()),
+                            new Claim(ClaimTypes.Name, model.Username)
+                        };
+
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                        var authProperties = new AuthenticationProperties
+                        {
+                            IsPersistent = true, // Giữ đăng nhập khi đóng trình duyệt
+                            ExpiresUtc = DateTimeOffset.UtcNow.AddHours(1)
+                        };
+
+                        // Đăng nhập người dùng
+                        await HttpContext.SignInAsync(
+                            CookieAuthenticationDefaults.AuthenticationScheme,
+                            new ClaimsPrincipal(claimsIdentity),
+                            authProperties
+                        );
+
                         TempData["Message"] = message;
                         return RedirectToAction("Index", "Home");
                     }
@@ -88,6 +113,19 @@ namespace C500Hemis.Controllers
                     }
                 }
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Account");
+        }
+
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

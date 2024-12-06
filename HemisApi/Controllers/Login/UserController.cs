@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HemisApi.Models;
-using BCrypt.Net;
+
 
 namespace HemisApi.Controllers.CB
 {
@@ -86,13 +86,10 @@ namespace HemisApi.Controllers.CB
                 return BadRequest(new { success = 0, message = "Username đã tồn tại. Vui lòng chọn username khác." });
             }
 
-            // Băm mật khẩu
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
-
             var newUser = new TbUser
             {
                 Username = model.Username,
-                Password = passwordHash,
+                Password = model.Password,
                 IdPhong = model.IdPhong // Giả sử bạn có IdPhong trong RegisterModel
             };
 
@@ -112,7 +109,7 @@ namespace HemisApi.Controllers.CB
             }
 
             var user = await _context.TbUsers.FirstOrDefaultAsync(u => u.Username == model.Username);
-            if (user != null && BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
+            if (user != null && model.Password==user.Password)
             {
                 // 1: Đăng nhập thành công
                 // Bạn có thể thêm token JWT hoặc session tại đây nếu muốn

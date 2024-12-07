@@ -15,6 +15,9 @@ namespace C500Hemis.Controllers
     {
         private readonly string _apiBaseUrl = "http://localhost:5224/api/user";
 
+        //Chạy trên internet
+        //private readonly string _apiBaseUrl = "http://14.0.22.12:8080/api/user";
+
         [HttpGet]
         public IActionResult Register()
         {

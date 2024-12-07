@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using C500Hemis.Models.DM;
+using Microsoft.AspNetCore.Authorization;
 
 namespace C500Hemis.Models;
 
+[Authorize]
 public partial class TbBaiBaoKhdaCongBo
 {
     /*Đặt tên cột*/

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace C500Hemis.Models;
 
+[Authorize]
 public partial class TbCanBoHuongDanThanhCongSinhVien
 {
     public int IdCanBoHuongDanThanhCongSinhVien { get; set; }

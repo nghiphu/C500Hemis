@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 
 namespace C500Hemis.Models;
 
+[Authorize]
 public partial class TbChiTietThuChi
 {
     public int IdChiTietThuChi { get; set; }

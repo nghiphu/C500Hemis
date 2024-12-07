@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using C500Hemis.Models.DM;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace C500Hemis.Models;
 
+[Authorize]
 public partial class TbChucDanhKhoaHocCuaCanBo
 {
     [Display(Name = "ID CHỨC DANH KHOA HỌC CỦA CÁN BỘ")]

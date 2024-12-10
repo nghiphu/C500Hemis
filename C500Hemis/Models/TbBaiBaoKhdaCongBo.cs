@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace C500Hemis.Models;
 
-[Authorize]
+
 public partial class TbBaiBaoKhdaCongBo
 {
     /*Đặt tên cột*/

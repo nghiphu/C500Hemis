@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace C500Hemis.Models;
 
-[Authorize]
 public partial class TbChuongTrinhDaoTao
 {
     [DisplayName(" ID chương trình đào tạo")]

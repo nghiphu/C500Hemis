@@ -13,7 +13,7 @@ namespace C500Hemis.Controllers
     [AllowAnonymous] // Cho phép truy cập mà không cần xác thực
     public class AccountController : Controller
     {
-        private readonly string _apiBaseUrl = "http://localhost:5224/api/user";
+        private readonly string _apiBaseUrl = "http://10.0.28.54:8080/api/user";
 
         //Chạy trên internet
         //private readonly string _apiBaseUrl = "http://14.0.22.12:8080/api/user";

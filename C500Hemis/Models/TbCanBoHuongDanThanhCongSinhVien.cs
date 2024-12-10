@@ -5,7 +5,6 @@ using System.ComponentModel;
 
 namespace C500Hemis.Models;
 
-[Authorize]
 public partial class TbCanBoHuongDanThanhCongSinhVien
 {
     public int IdCanBoHuongDanThanhCongSinhVien { get; set; }

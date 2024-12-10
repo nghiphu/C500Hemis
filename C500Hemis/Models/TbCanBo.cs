@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace C500Hemis.Models;
 
-[Authorize]
 public partial class TbCanBo
 {
     [Display(Name = "Id cán bộ")]

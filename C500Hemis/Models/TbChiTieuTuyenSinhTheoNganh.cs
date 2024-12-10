@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace C500Hemis.Models;
 
-[Authorize]
 public partial class TbChiTieuTuyenSinhTheoNganh
 {
     public int IdChiTieuTuyenSinhTheoNganh { get; set; }

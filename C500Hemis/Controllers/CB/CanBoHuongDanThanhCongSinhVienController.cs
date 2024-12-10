@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using C500Hemis.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace C500Hemis.Controllers.CB
 {
+    [Authorize]
     public class CanBoHuongDanThanhCongSinhVienController : Controller
     {
         private readonly HemisContext _context;

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace C500Hemis.Models;
 
-[Authorize]
 public partial class TbChuyenGiaoCongNgheVaDaoTao
 {
     //[DisplayName(displayName: "NỘI DUNG HOẠT ĐỘNG TẠI VIỆT NAM")]

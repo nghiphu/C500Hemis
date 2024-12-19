@@ -14,9 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // C?u h�nh DbContext cho SQL Server
+string mode = "Local"; //Đổi sang Remote nếu tự chạy API
 builder.Services.AddDbContext<DbHemisC500Context>(options =>
-    options.UseSqlServer("Server=10.0.28.54;Database=dbHemisC500;Trusted_Connection=True;Encrypt=false;User Id=c500;Password=@Abc1234")
-    //options.UseSqlServer("Server=tcp:c500sv.database.windows.net,1433;Database=dbHemisC500;User Id=c500;Password=@Abc1234")
+    options.UseSqlServer(builder.Configuration.GetConnectionString(mode) ?? throw new Exception("Không tồn tại connection string"))
 );
 
 // C?u h�nh localization ?? h? tr? ti?ng Vi?t
@@ -41,11 +41,8 @@ if (!app.Environment.IsDevelopment())
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthorization();
 

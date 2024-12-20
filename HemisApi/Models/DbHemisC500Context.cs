@@ -650,8 +650,9 @@ public partial class DbHemisC500Context : DbContext
         modelBuilder.Entity<DmCapHoiNghi>(entity =>
         {
             entity
-                .HasNoKey()
-                .ToTable("dmCapHoiNghi", "DM");
+                .HasKey(e => e.IdCapHoiNghi);
+                
+            entity.ToTable("dmCapHoiNghi", "DM");
 
             entity.Property(e => e.CapHoiNghi).HasMaxLength(50);
         });
@@ -4017,9 +4018,9 @@ public partial class DbHemisC500Context : DbContext
 
         modelBuilder.Entity<TbThoaThuanHopTacQuocTe>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("tbThoaThuanHopTacQuocTe", "HTQT");
+            entity.HasKey(e => e.IdThoaThuanHopTacQuocTe);
+            
+            entity.ToTable("tbThoaThuanHopTacQuocTe", "HTQT");
 
             entity.Property(e => e.MaThoaThuan).HasMaxLength(50);
             entity.Property(e => e.SoVanBanKyKet).HasMaxLength(50);
@@ -4103,9 +4104,8 @@ public partial class DbHemisC500Context : DbContext
 
         modelBuilder.Entity<TbThongTinHocTapSinhVien>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("tbThongTinHocTapSinhVien", "NH");
+            entity.HasKey(e=> e.IdThongTinHocTapHocVien);
+            entity.ToTable("tbThongTinHocTapSinhVien", "NH");
 
             entity.Property(e => e.DangOnoiTru).HasColumnName("DangONoiTru");
             entity.Property(e => e.KetQuaTuyenSinh).HasColumnType("text");
@@ -4273,9 +4273,9 @@ public partial class DbHemisC500Context : DbContext
 
         modelBuilder.Entity<TbThuVienTrungTamHocLieu>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("tbThuVienTrungTamHocLieu", "CSVC");
+            entity.HasKey(e => e.IdThuVienTrungTamHocLieu);
+            
+            entity.ToTable("tbThuVienTrungTamHocLieu", "CSVC");
 
             entity.Property(e => e.IdTinhTrangCsvc).HasColumnName("IdTinhTrangCSVC");
             entity.Property(e => e.MaThuVienTrungTamHocLieu).HasMaxLength(50);
